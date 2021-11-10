@@ -1,0 +1,39 @@
+{
+    "server": {
+        "port": 8000,
+        "views": "../pages",
+        "public": "../../public",
+        "publicUrl": "/files",
+        "ssl": {
+            "ca": null,
+            "key": "C:/Users/Mohamed Aharrat/Desktop/bookhouse/src/server/certificate/key.pem",
+            "cert": "C:/Users/Mohamed Aharrat/Desktop/bookhouse/src/server/certificate/certificate.crt"
+        },
+        "routers":
+        [
+            {
+                "module": "./routers/room.router",
+                "url": "/"
+            }
+        ]
+    },
+
+    "socket": {
+        "chunkTime": 200,
+        "stateDefault": {
+            "name": null,
+            "avatar": null,
+            "connected": false,
+            "muted": true,
+            "deafened": false
+        },
+        "messages": {
+            "connect": "user-connect",
+            "disconnect": "user-disconnect",
+            "update": "user-update",
+            "states": "user-states",
+            "transmit": "user-transmit",
+            "sync": "user-sync"
+        }
+    }
+}
