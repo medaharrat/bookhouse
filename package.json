@@ -24,11 +24,14 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "client": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "yarn run nodemon ./src/server/server.node"
+
+    "client": "react-scripts start",
+    "server": "yarn run nodemon ./src/server/server.node",
+    
+    "test-client": "react-scripts test",
+    "test-server": "exit 0"
   },
   "eslintConfig": {
     "extends": [

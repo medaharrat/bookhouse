@@ -1,0 +1,41 @@
+stages:
+  - environment
+  - dependencies
+  - test
+
+environment-install:
+  stage: environment
+  script:
+    - echo "Preparing environment..."
+    - apt-get update
+    - apt-get install -y nodejs
+    - apt-get install -y yarn
+    - echo "Prepared successfully."
+
+dependencies-download:
+  stage: dependencies
+  script:
+    - echo "Downloading dependencies..."
+    - yarn install
+    - echo "Dependencies installed..."
+
+test-client:
+  stage: test
+  script:
+    - echo "Testing client dummy code."
+    - yarn test
+    - echo "Client tested completed."
+
+test-server:
+  stage: test
+  script:
+    - echo "Testing server dummy code."
+    - sleep 100
+    - echo "Server tested completed."
+
+test-all:
+  stage: test
+  script:
+    - echo "Combined testing server dummy code."
+    - sleep 100
+    - echo "Server tested completed."
