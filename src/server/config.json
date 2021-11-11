@@ -6,8 +6,8 @@
         "publicUrl": "/files",
         "ssl": {
             "ca": null,
-            "key": "./certificate/key.pem",
-            "cert": "./certificate/certificate.crt"
+            "key": "./src/server/certificate/key.pem",
+            "cert": "./src/server/certificate/certificate.crt"
         },
         "routers":
         [

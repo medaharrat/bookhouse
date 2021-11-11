@@ -24,12 +24,11 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "client": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "nodemon ./server/server.node",
-    "debug": "npx nodemon -e js,ejs ./server/server.node"
+    "server": "yarn run nodemon ./src/server/server.node"
   },
   "eslintConfig": {
     "extends": [
@@ -48,5 +47,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
