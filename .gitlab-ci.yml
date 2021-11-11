@@ -47,7 +47,7 @@ test-client:
     - yarn install
   script:
     - echo "Testing client dummy code."
-    - #yarn test-client
+    - sleep 10 #yarn test-client
     - echo "Client tested completed."
 
 # Test server
@@ -58,7 +58,7 @@ test-server:
     - yarn install
   script:
     - echo "Testing server dummy code."
-    - #yarn test-server
+    - sleep 10 #yarn test-server
     - echo "Server tested completed."
 
 # Test all
