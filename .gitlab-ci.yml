@@ -12,17 +12,14 @@ before_script:
 
 # Define stages
 stages:
-  - update
+  - version
   - build
   - test
 
 
-# Update versions
+# Check versions
 version-all:
-  stage: update
-  before_script:
-    - npm install -g n
-    - npm install --global yarn
+  stage: version
   script:
     - echo "Node:"
     - node -v
@@ -31,14 +28,14 @@ version-all:
     - echo "Yarn:"
     - yarn -v
 
-# Install dependencies and build
-build-all:
+
+# Install dependencies
+build-packages:
   stage: build
   before_script:
     - yarn config set cache-folder .yarn
-    - yarn install
   script:
-    - yarn build
+    - yarn install
 
 
 
@@ -50,7 +47,7 @@ test-client:
     - yarn install
   script:
     - echo "Testing client dummy code."
-    - yarn test-client
+    - #yarn test-client
     - echo "Client tested completed."
 
 # Test server
@@ -61,7 +58,7 @@ test-server:
     - yarn install
   script:
     - echo "Testing server dummy code."
-    - yarn test-server
+    - #yarn test-server
     - echo "Server tested completed."
 
 # Test all
@@ -72,5 +69,5 @@ test-all:
     - yarn install
   script:
     - echo "Combined testing server dummy code."
-    - sleep 100
+    - sleep 10
     - echo "Server tested completed."
