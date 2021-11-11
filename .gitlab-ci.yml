@@ -12,8 +12,24 @@ before_script:
 
 # Define stages
 stages:
+  - update
   - build
   - test
+
+
+# Update versions
+version-all:
+  stage: update
+  before_script:
+    - npm install -g n
+    - npm install --global yarn
+  script:
+    - echo "Node:"
+    - node -v
+    - echo "Npm:"
+    - npm -v
+    - echo "Yarn:"
+    - yarn -v
 
 # Install dependencies and build
 build-all:
