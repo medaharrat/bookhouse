@@ -1,38 +1,49 @@
+image: node:9.4.0
+
+# Cache between steps
+cache:
+  paths:
+    - node_modules/
+    - .yarn
+
+# Update before starting
+before_script:  
+  - apt-get update -qq && apt-get install
+
+# Define stages
 stages:
-  - environment
-  - dependencies
+  - build
   - test
 
-environment-install:
-  stage: environment
+# Install dependencies and build
+build-all:
+  stage: build
+  before_script:
+    - export NODE_OPTIONS=--openssl-legacy-provider
+    - yarn config set cache-folder .yarn
+    - yarn install    
   script:
-    - echo "Preparing environment..."
-    - apt-get update
-    - apt-get install -y nodejs
-    - apt-get install -y yarn
-    - echo "Prepared successfully."
+    - yarn build
 
-dependencies-download:
-  stage: dependencies
-  script:
-    - echo "Downloading dependencies..."
-    - yarn install
-    - echo "Dependencies installed..."
 
+
+# Test client
 test-client:
   stage: test
   script:
     - echo "Testing client dummy code."
-    - yarn test
+    - yarn test-client
     - echo "Client tested completed."
 
+# Test server
 test-server:
   stage: test
   script:
     - echo "Testing server dummy code."
-    - sleep 100
+    - yarn test-server
     - echo "Server tested completed."
 
+# Test all
 test-all:
   stage: test
   script:
