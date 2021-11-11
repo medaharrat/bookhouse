@@ -1,19 +1,29 @@
-# Bookhsue
-For developers
+# Bookhouse
+
+### For developers
+
 A VoIP based Progressive Web Application.
-For others
+
+### For others
+
 A social platform for book lovers.
+
+
 
 ## Scripts
 
 In the project directory, you can run:
 
-### `yarn start`
+### Install dependencies
+
+`yarn install`
+
+### Start services
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-### `yarn server`
+`yarn client` React service\
+`yarn server` SocketIO and API service
 
-Launches the backend server in watch mode.
-Open [http://localhost:8000](http://localhost:8000) to view it in the browser.
+(Run in different terminals)
