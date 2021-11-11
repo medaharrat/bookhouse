@@ -28,8 +28,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "nodemon ./src/server/server.node",
-    "debug": "npx nodemon -e js,ejs ./src/server/server.node"
+    "server": "nodemon ./server/server.node",
+    "debug": "npx nodemon -e js,ejs ./server/server.node"
   },
   "eslintConfig": {
     "extends": [
