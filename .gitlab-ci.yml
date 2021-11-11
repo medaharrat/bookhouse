@@ -19,9 +19,8 @@ stages:
 build-all:
   stage: build
   before_script:
-    - export NODE_OPTIONS=--openssl-legacy-provider
     - yarn config set cache-folder .yarn
-    - yarn install    
+    - yarn install
   script:
     - yarn build
 
@@ -30,6 +29,9 @@ build-all:
 # Test client
 test-client:
   stage: test
+  before_script:
+    - yarn config set cache-folder .yarn
+    - yarn install
   script:
     - echo "Testing client dummy code."
     - yarn test-client
@@ -38,6 +40,9 @@ test-client:
 # Test server
 test-server:
   stage: test
+  before_script:
+    - yarn config set cache-folder .yarn
+    - yarn install
   script:
     - echo "Testing server dummy code."
     - yarn test-server
@@ -46,6 +51,9 @@ test-server:
 # Test all
 test-all:
   stage: test
+  before_script:
+    - yarn config set cache-folder .yarn
+    - yarn install
   script:
     - echo "Combined testing server dummy code."
     - sleep 100
