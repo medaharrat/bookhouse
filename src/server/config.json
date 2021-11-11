@@ -6,8 +6,8 @@
         "publicUrl": "/files",
         "ssl": {
             "ca": null,
-            "key": "C:/Users/Mohamed Aharrat/Desktop/bookhouse/src/server/certificate/key.pem",
-            "cert": "C:/Users/Mohamed Aharrat/Desktop/bookhouse/src/server/certificate/certificate.crt"
+            "key": "./certificate/key.pem",
+            "cert": "./certificate/certificate.crt"
         },
         "routers":
         [
