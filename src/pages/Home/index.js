@@ -27,7 +27,7 @@ const Home = () => {
         if(advertisement !== ad)
             setAd(advertisement);
         // eslint-disable-next-line
-    });
+    }, [ad]);
 
     return (
         <Layout ad={ad}>

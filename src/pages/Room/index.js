@@ -128,9 +128,13 @@ const Room = ({ title }) => {
     // Events
     const leave = (e) => {
         e.preventDefault()
+        // Disconnect user
         userStatus.connected = false
         emitUserChange()
-        alert("You left this chat!")
+        // Inform the user of disconnection
+        alert("You're disconnected!")
+        // Redirect to home
+        window.location.href = "/home";
     }
 
     const onUserConnect = (e) => {

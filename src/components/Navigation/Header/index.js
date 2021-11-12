@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import {
-    AppBar, IconButton, Badge, Toolbar, Button
+    AppBar, IconButton, Badge, Toolbar, Button, Link
 } from "@material-ui/core";
 import {
     DraftsOutlined, DateRangeOutlined, NotificationsNoneOutlined
@@ -26,7 +26,6 @@ const Header = () => {
                             <Avatar nav image={user.profile_image}/>
                         </IconButton>
                         <div className={classes.grow} />
-                        {/* Messages */}
                         <IconButton
                             aria-label="inbox"
                             aria-haspopup="true"
@@ -39,11 +38,14 @@ const Header = () => {
                                     horizontal: 'right',
                                 }}
                                 color="primary"
+                                badgeContent={1}
                             >
                                 <DraftsOutlined/>
                             </Badge>
                         </IconButton>
-                        {/* Notifications */}
+                        {/* 
+                        * Header actions 
+                        ===> Notifications
                         <IconButton
                             aria-label="notifications"
                             aria-haspopup="true"
@@ -61,7 +63,8 @@ const Header = () => {
                                 <NotificationsNoneOutlined/>
                             </Badge>
                         </IconButton>
-                        {/* Calendar */}
+                        
+                        ===> Calendar 
                         <IconButton
                             aria-label="calendar"
                             aria-haspopup="true"
@@ -70,13 +73,16 @@ const Header = () => {
                         >
                             <DateRangeOutlined/>
                         </IconButton>
+                        */}
                     </>
                     ):(
                     <>
                         <div className={classes.grow} />
-                        <Button variant="outlined" color="primary" disableRipple disableElevation>
-                            Join
-                        </Button>
+                        <Link href="/login" underline="none">
+                            <Button variant="outlined" color="primary" disableRipple disableElevation>
+                                Join
+                            </Button>
+                        </Link>
                     </>
                 )}
             </Toolbar>

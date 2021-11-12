@@ -13,7 +13,7 @@ const routes = [
     },
     {
         name: "home",
-        path: "/h",
+        path: "/home",
         element: <Home />,
     },
     {
