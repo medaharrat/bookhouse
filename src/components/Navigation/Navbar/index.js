@@ -1,33 +1,27 @@
 import React from 'react';
-import {
-  AppBar, Toolbar, IconButton
-} from '@material-ui/core';
-import {
-  Home, Search, Apps
-} from '@material-ui/icons';
+import { Home, Search, Apps } from '@material-ui/icons';
+import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import { useStyles } from './styles';
 
-const NavigationBar = () => {
-  const classes = useStyles();
-
-  const pages = [
-    {title: 'Home', icon: <Home/>, link: "/"}, 
-    {title: 'Search', icon: <Search/>, link: "/"}, 
-    {title: 'Library', icon: <Apps/>, link: "/"}
-  ];
-  
+const NavigationBar = () => { 
+    const pathname = window.location.pathname;
+    const [value, setValue] = React.useState(pathname);
+    const classes = useStyles();
   return (
-    <AppBar className={classes.navBar}>
-      <Toolbar>
-        {pages.map((page) => (
-          <div className={classes.grow} key={page.title}>
-            <IconButton aria-label={page.title}>
-              { page.icon }
-            </IconButton>
-          </div>
-        ))}
-      </Toolbar>
-    </AppBar>
+      <BottomNavigation className={classes.navBar}
+        showLabels
+        value={value}
+        onChange={(event, newValue) => {
+          setValue(newValue)
+        }
+        }
+      >
+        <BottomNavigationAction label="Home" icon={<Home />} component={Link} to="/h" value="/h" />
+        <BottomNavigationAction label="Search" icon={<Search />} component={Link} to="/" value="/" />
+        <BottomNavigationAction label="Library" icon={<Apps />} component={Link} to="/login" value="/login" />
+      </BottomNavigation>
+
   );
 };
 
