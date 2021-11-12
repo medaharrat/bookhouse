@@ -52,7 +52,26 @@ const useStyles = makeStyles({
     },
     controllOff: {
         color: '#FF0000'
-    }
+    },
+    modal: {
+        position: 'relative',
+        top: '35vh',
+        width: 400,
+        margin: 'auto',
+        backgroundColor: palette.background.grey,
+        border: '2px solid #000',
+        boxShadow: palette.background.shadow,
+        padding: 20,
+        textAlign: 'center'
+    },
+    modalActions: {
+        justifyContent: 'center',
+    },
+    modalController: {
+        border: `1px solid ${palette.background.grey}`,
+        margin: 10
+    },
+
 })
 
 export { useStyles };
