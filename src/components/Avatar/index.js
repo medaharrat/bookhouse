@@ -1,6 +1,6 @@
 import React from "react";
-import MaterialAvatar from "@material-ui/core/Avatar";
-import { Typography, Badge } from "@material-ui/core";
+import PropTypes from 'prop-types';
+import { Avatar as MaterialAvatar, Typography, Badge } from "@material-ui/core";
 import { MicOffOutlined } from "@material-ui/icons";
 import { useStyles } from "./styles";
 
@@ -22,13 +22,13 @@ const Avatar = ({ image, title, nav, muted, style }) => {
             {nav ? (
                 <MaterialAvatar 
                     alt={title ? title : 'Avatar'} 
-                    src={image ? image : 'https://v4--material-ui-docs.netlify.app/static/images/avatar/1.jpg'} 
+                    src={image} 
                     imgProps={imgProps}
                 />
             ):(
               <img 
                     alt={title ? title : 'Avatar'}  
-                    src={image ? image : 'https://v4--material-ui-docs.netlify.app/static/images/avatar/1.jpg'}
+                    src={image}
                     className={classes.avatar}
                     draggable="false"
                 />
@@ -42,5 +42,21 @@ const Avatar = ({ image, title, nav, muted, style }) => {
         </div>
     )
 }
+
+Avatar.propTypes = {
+    image: PropTypes.string, 
+    title: PropTypes.string, 
+    nav: PropTypes.bool, 
+    muted: PropTypes.bool, 
+    style: PropTypes.object
+};
+  
+Avatar.defaultProps = {
+    image: 'https://v4--material-ui-docs.netlify.app/static/images/avatar/1.jpg', 
+    title: '', 
+    nav: false, 
+    muted: false, 
+    style: {}
+};
 
 export default Avatar;

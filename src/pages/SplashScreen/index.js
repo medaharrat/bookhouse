@@ -10,7 +10,6 @@ const SplashScreen = () => {
     
     return (
         <Layout>
-            {/* Splash screen */}
             <div>
                 <Typography variant="h3" className={classes.title}>
                     When a good book ends, the conversation begins.

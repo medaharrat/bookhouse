@@ -28,7 +28,7 @@
     "eject": "react-scripts eject",
 
     "client": "react-scripts start",
-    "server": "yarn run nodemon ./src/server/server.node",
+    "server": "nodemon ./src/server/server.node",
     
     "test-client": "react-scripts test",
     "test-server": "exit 0"

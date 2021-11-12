@@ -1,4 +1,4 @@
-import Room from '../components/Room';
+import Room from './Room';
 import Home from './Home';
 import Login from './Auth/Login';
 import Register from './Auth/Register';

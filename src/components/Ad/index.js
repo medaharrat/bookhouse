@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import {
     Paper, Button, Link, Typography
 } from '@material-ui/core';
@@ -22,4 +23,13 @@ const Ad = ({ href, children }) => {
     )
 }
 
+Ad.propTypes = {
+    href: PropTypes.string,
+    children: PropTypes.node.isRequired,
+};
+  
+Ad.defaultProps = {
+    href: '#',
+};
+  
 export default Ad;

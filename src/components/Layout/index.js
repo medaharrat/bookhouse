@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import {
     Container, Typography, Box
 } from "@material-ui/core";
@@ -34,5 +35,16 @@ const Layout = ({ title, children, ad }) => {
         </SocketContext.Provider>
     )
 }
+
+Layout.propTypes = {
+    title: PropTypes.string, 
+    children: PropTypes.node.isRequired, 
+    ad: PropTypes.string,
+};
+  
+Layout.defaultProps = {
+    title: '',
+    ad: ''
+};
 
 export default Layout;

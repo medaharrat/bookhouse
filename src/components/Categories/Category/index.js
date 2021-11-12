@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import {
     Card, CardContent, CardMedia, Typography
 } from '@material-ui/core';
@@ -27,5 +28,13 @@ const Category = ({ category }) => {
       </Card>
     );
 }
+
+Category.propTypes = {
+  category: PropTypes.object.isRequired,
+};
+
+Category.defaultProps = {
+  
+};
 
 export default Category;

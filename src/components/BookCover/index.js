@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import {
     Typography
 } from '@material-ui/core';
@@ -29,5 +30,15 @@ const BookCover = ({title, subtitle, cover}) => {
         </div>
     );
 }
+
+BookCover.propTypes = {
+    title: PropTypes.string.isRequired,
+    subtitle: PropTypes.string.isRequired, 
+    cover: PropTypes.string.isRequired
+};
+  
+BookCover.defaultProps = {
+    
+};
 
 export default BookCover;

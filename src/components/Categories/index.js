@@ -1,7 +1,6 @@
 import React from "react";
-import {
-    Grid
-} from "@material-ui/core";
+import PropTypes from 'prop-types';
+import Grid from "@material-ui/core/Grid";
 import Category from "./Category";
 
 const Categories = ({ categories }) => {
@@ -16,5 +15,13 @@ const Categories = ({ categories }) => {
         </Grid>
     );
 }
+
+Categories.propTypes = {
+    categories: PropTypes.array.isRequired,
+};
+  
+Categories.defaultProps = {
+    
+};
 
 export default Categories;

@@ -1,19 +1,14 @@
-/*
-################## CURRENT PROBLEM ##########################
-Voice is not transmitting becaus the UserStatus state is not 
-updated, it always preserves its initial state
-#############################################################
-*/
 import React, { useState, useEffect, useContext } from "react";
+import PropTypes from 'prop-types';
 import { 
     IconButton, Typography, Box, Grid, Button, Modal
 } from "@material-ui/core";
 import {
     PanTool, MicOff, VolumeOff, Mic, VolumeUp
 } from "@material-ui/icons";
+import Avatar from "../../components/Avatar";
+import Layout from "../../components/Layout";
 import { SocketContext } from "../../context/socket";
-import Avatar from "../Avatar";
-import Layout from "../Layout";
 import { useStyles } from "./styles.js";
 import _ from "../../server/config.json";
 
@@ -65,12 +60,11 @@ const Room = ({ title }) => {
                 fileReader.readAsDataURL(audioBlob)
                 fileReader.onloadend = () => {
                     //Guard: do not send if not ready
-                    console.log('FileReader end => ', JSON.stringify(userStatus))
                     if (!userStatus.connected || userStatus.muted) return
-                    else{
+                    else {
                         //Transmit data
                         socket.emit(config.messages.transmit, fileReader.result)
-                        console.log("🎤 Emitting voice data ... <")
+                        console.log("🎤 Emitting voice data ...")
                     }
 
                 }
@@ -99,8 +93,7 @@ const Room = ({ title }) => {
         //On user sync received
         socket.on(config.messages.sync, (data) => {
             console.log('> Syncing ...')
-            setUserStatus(data);
-            console.log(`\t Received from server ${JSON.stringify(data)}`)
+            userStatus.name = data.name
         })
     
         //On user status change
@@ -241,5 +234,13 @@ const Room = ({ title }) => {
         </Layout>
     );
 }
+
+Room.propTypes = {
+    title: PropTypes.string.isRequired,
+};
+  
+Room.defaultProps = {
+    
+};
 
 export default Room;
