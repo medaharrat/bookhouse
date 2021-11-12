@@ -8,8 +8,6 @@ A VoIP based Progressive Web Application.
 
 A social platform for book lovers.
 
-
-
 ## Scripts
 
 In the project directory, you can run:
