@@ -5,31 +5,29 @@ import {
 import {
     DraftsOutlined, DateRangeOutlined, NotificationsNoneOutlined
 } from "@material-ui/icons";
+import { 
+    useAuthState 
+} from '../../../context';
 import Avatar from '../../Avatar';
 import { useStyles } from "./styles";
 
 const Header = () => {
     const classes = useStyles();
-    const user = {
-        id: "1",
-        profile_image: "https://v4--material-ui-docs.netlify.app/static/images/avatar/1.jpg",
-        first_name: "Mohamed",
-        last_name: "Aharrat",
-        email: "ahr9oi@inf.elte.hu",
-        loggedIn: true,
-    }
+
+    // Read user details from context
+    const userDetails = useAuthState() 
 
     return (
         <AppBar position="static" className={classes.header}>
             <Toolbar>
-                {user.loggedIn ? (
+                {userDetails.token ? (
                     <>
                         <IconButton
                             aria-label="account of current user"
                             aria-haspopup="true"
                             color="inherit"
                         >
-                            <Avatar nav image={user.profile_image}/>
+                            <Avatar nav image="https://v4--material-ui-docs.netlify.app/static/images/avatar/1.jpg"/>
                         </IconButton>
                         <div className={classes.grow} />
                         <IconButton
@@ -44,14 +42,10 @@ const Header = () => {
                                     horizontal: 'right',
                                 }}
                                 color="primary"
-                                badgeContent={1}
                             >
                                 <DraftsOutlined/>
                             </Badge>
                         </IconButton>
-                        {/* 
-                        * Header actions 
-                        ===> Notifications
                         <IconButton
                             aria-label="notifications"
                             aria-haspopup="true"
@@ -69,7 +63,8 @@ const Header = () => {
                                 <NotificationsNoneOutlined/>
                             </Badge>
                         </IconButton>
-                        
+                        {/* 
+                        * Header actions 
                         ===> Calendar 
                         <IconButton
                             aria-label="calendar"
