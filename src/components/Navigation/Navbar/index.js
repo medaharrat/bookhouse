@@ -17,7 +17,7 @@ const NavigationBar = () => {
         }
         }
       >
-        <BottomNavigationAction label="Home" icon={<Home />} component={Link} to="/h" value="/home" />
+        <BottomNavigationAction label="Home" icon={<Home />} component={Link} to="/home" value="/home" />
         <BottomNavigationAction label="Search" icon={<Search />} component={Link} to="/" value="/" />
         <BottomNavigationAction label="Library" icon={<Apps />} component={Link} to="/login" value="/login" />
       </BottomNavigation>

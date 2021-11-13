@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import {
     AppBar, IconButton, Badge, Toolbar, Button, Link
 } from "@material-ui/core";
@@ -6,12 +6,18 @@ import {
     DraftsOutlined, DateRangeOutlined, NotificationsNoneOutlined
 } from "@material-ui/icons";
 import Avatar from '../../Avatar';
-import { GlobalContext } from "../../../context/GlobalState";
 import { useStyles } from "./styles";
 
 const Header = () => {
     const classes = useStyles();
-    const { user } = useContext(GlobalContext);
+    const user = {
+        id: "1",
+        profile_image: "https://v4--material-ui-docs.netlify.app/static/images/avatar/1.jpg",
+        first_name: "Mohamed",
+        last_name: "Aharrat",
+        email: "ahr9oi@inf.elte.hu",
+        loggedIn: true,
+    }
 
     return (
         <AppBar position="static" className={classes.header}>

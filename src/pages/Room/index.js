@@ -8,12 +8,14 @@ import {
 } from "@material-ui/icons";
 import Avatar from "../../components/Avatar";
 import Layout from "../../components/Layout";
-import { SocketContext } from "../../context/socket";
+import { SocketContext } from "../../context/index";
+import { useNavigate } from "react-router-dom";
 import { useStyles } from "./styles.js";
 import _ from "../../server/config.json";
 
 const Room = ({ title }) => {
     const classes = useStyles();
+    const navigate = useNavigate();
 
     //Read config
     const config = _.socket
@@ -28,9 +30,8 @@ const Room = ({ title }) => {
         deafened: config.stateDefault.deafened,
         connected: config.stateDefault.connected,            
     })
+
     const avatarStyle = { height: 70, width: 70 }
-
-
 
     const initializeMedia = () => {
         // Initialize Media
@@ -134,7 +135,7 @@ const Room = ({ title }) => {
         // Inform the user of disconnection
         alert("You're disconnected!")
         // Redirect to home
-        window.location.href = "/home";
+        navigate('/home');
     }
 
     const onUserConnect = (e) => {

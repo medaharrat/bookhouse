@@ -6,12 +6,18 @@ import Layout from "../../components/Layout";
 import Avatar from "../../components/Avatar";
 import ProfileTabs from "../../components/ProfileTabs";
 import clsx from "clsx";
-import { GlobalContext } from "../../context/GlobalState";
 import { useStyles } from "./styles";
 
 const Profile = () => {
     const classes = useStyles();
-    const { user } = useContext(GlobalContext);
+    const user = {
+        id: "1",
+        profile_image: "https://v4--material-ui-docs.netlify.app/static/images/avatar/1.jpg",
+        first_name: "Mohamed",
+        last_name: "Aharrat",
+        email: "ahr9oi@inf.elte.hu",
+        loggedIn: true,
+    }
 
     const avatarStyle = {  height: 150, width: 150 }
 
