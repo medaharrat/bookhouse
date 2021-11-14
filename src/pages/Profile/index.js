@@ -23,31 +23,22 @@ const Profile = () => {
 
     return (
         <Layout>
-            <Grid container>
+            <div className={classes.profile}>
                 <Grid container lg={12} direction="column" justifyContent="space-between" alignItems="center">
                     <Grid item lg={9} className={classes.user}>
                         <Avatar style={avatarStyle}/>
                         <Typography variant="h5" className={clsx(classes.padding, classes.name)}>
                             { `${user.first_name} ${user.last_name}`}
                         </Typography>
-                    </Grid>
-                    <Grid item lg={3}>
-                        <Button 
-                            className={classes.btn} 
-                            variant="contained" 
-                            color="primary" 
-                            size="large" 
-                            disableRipple
-                            disableElevation
-                        >
-                            Edit profile
-                        </Button>
+                        <Typography variant="body2" color="textSecondary">
+                            { `@${user.first_name}`}
+                        </Typography>
                     </Grid>
                 </Grid>
                 <Grid item lg={12} xs={12} className={classes.tabs}>
                     <ProfileTabs />
                 </Grid>
-            </Grid>
+            </div>
         </Layout>
     );
 }

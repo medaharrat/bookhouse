@@ -9,7 +9,7 @@ const useStyles = makeStyles({
     bottom: 0,
     top: 'auto',
     zIndex: 99,
-    backgroundColor: palette.background.grey,
+    backgroundColor: palette.background.smooth,
     color: palette.text.secondary,
     paddingBottom: 'env(safe-area-inset-bottom)',
   },
@@ -17,6 +17,18 @@ const useStyles = makeStyles({
     flexGrow: 4,
     textAlign: 'center',
   },
+  plus: {
+    fontSize: 18,
+    marginRight: 10
+  },
+  start: {
+    borderRadius: 10,
+    width: '40%',
+    backgroundImage: palette.background.gradient,
+    color: palette.text.white,
+    textTransform: 'none',
+    fontSize: 16,
+  }
 })
 
 export { useStyles };

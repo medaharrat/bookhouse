@@ -7,7 +7,10 @@ const useStyles = makeStyles({
     boxShadow: 'none',
   },
   icon: {
-    color: palette.text.grey
+    color: palette.text.grey,
+    '&:hover':{
+      backgroundColor: 'transparent',
+    }
   },
   grow: {
     flexGrow: 1,
