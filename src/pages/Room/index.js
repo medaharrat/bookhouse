@@ -190,7 +190,7 @@ const Room = ({ title }) => {
                                         <Avatar 
                                             title={user.name ? user.name.substr(0, 4) : 'Guest'} 
                                             muted={user.muted} style={avatarStyle}
-                                            speaking={false}
+                                            speaking={user.connected && !user.muted}
                                         />
                                     </Grid>
                                 ))

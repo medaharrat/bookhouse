@@ -10,9 +10,9 @@ const useStyles = makeStyles({
       textAlign: "center"
     },
     avatar: {
-      height: style => (style.height) ? style.height : 50,  
-      width: style => (style.height) ? style.height : 50,  
-      border: speaking => (speaking ? '1px solid black' : ''),
+      height: props => (props.style.height) ? props.style.height : 50,  
+      width: props => (props.style.height) ? props.style.height : 50,  
+      border: props => (props.speaking ? `3px solid ${palette.background.darkgrey}`  : ''),
       borderRadius: 20,
     },
     muted: {

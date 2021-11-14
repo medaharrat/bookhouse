@@ -7,8 +7,8 @@ import {
     DraftsOutlined, DateRangeOutlined, NotificationsNoneOutlined
 } from "@material-ui/icons";
 import ArrowBackOutlinedIcon from '@material-ui/icons/ArrowBackOutlined';
-import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
-import { useAuthState } from '../../../context';
+import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
+import { useAuthState, logout, useAuthDispatch } from '../../../context';
 import { useLocation, useNavigate } from "react-router-dom";
 import Avatar from '../../Avatar';
 import { useStyles } from "./styles";
@@ -17,8 +17,20 @@ const Header = ({ fixed }) => {
     const classes = useStyles();
     const location = useLocation();
     const navigate = useNavigate();
+
+    // Read dispatch method from context
+    const dispatch = useAuthDispatch() 
     // Read user details from context
     const userDetails = useAuthState() 
+
+    // Log out
+    const handleLogout = () => {
+        // Call the logout action
+        logout(dispatch) 
+        // Navigate on logout
+        navigate('/') 
+    }
+
     const handleBack = () => {
         navigate(-1);
     }
@@ -44,8 +56,9 @@ const Header = ({ fixed }) => {
                                 color="inherit"
                                 className={classes.icon}
                                 disableRipple
+                                onClick={handleLogout}
                             >
-                                <SettingsOutlinedIcon />
+                                <ExitToAppOutlinedIcon />
                             </IconButton>
                         </>
                     ) : (

@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
 import { useStyles } from "./styles";
 
-const Login = (props) => {
+const Login = () => {
     const classes = useStyles();
     const navigate = useNavigate();
     const [alert, setAlert] = useState({title: '', type: 'warning'})
