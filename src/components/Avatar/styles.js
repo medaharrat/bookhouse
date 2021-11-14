@@ -12,6 +12,7 @@ const useStyles = makeStyles({
     avatar: {
       height: style => (style.height) ? style.height : 50,  
       width: style => (style.height) ? style.height : 50,  
+      border: speaking => (speaking ? '1px solid black' : ''),
       borderRadius: 20,
     },
     muted: {

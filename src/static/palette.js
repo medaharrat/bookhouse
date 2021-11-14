@@ -18,6 +18,7 @@ const palette = {
   },
   borders: {
     light: '#e5e5e5',
+    dark: '#D0D0D0',
   }
 };
   

@@ -41,7 +41,7 @@ const useStyles = makeStyles({
         borderRadius: 15,
         padding: 10,
         color: palette.text.grey,
-        backgroundColor: palette.background.grey
+        backgroundColor: palette.background.grey,
     },
     controlBtn: {
         color: palette.text.grey,
@@ -59,7 +59,7 @@ const useStyles = makeStyles({
         width: 400,
         margin: 'auto',
         backgroundColor: palette.background.grey,
-        border: '2px solid #000',
+        borderRadius: 10,
         boxShadow: palette.background.shadow,
         padding: 20,
         textAlign: 'center'
@@ -68,7 +68,7 @@ const useStyles = makeStyles({
         justifyContent: 'center',
     },
     modalController: {
-        border: `1px solid ${palette.background.grey}`,
+        border: `1px solid ${palette.background.darkgrey}`,
         margin: 10
     },
 

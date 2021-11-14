@@ -67,9 +67,6 @@ const Header = ({ fixed }) => {
                                 <NotificationsNoneOutlined/>
                             </Badge>
                         </IconButton>
-                        {/* 
-                        * Header actions 
-                        ===> Calendar 
                         <IconButton
                             aria-label="calendar"
                             aria-haspopup="true"
@@ -78,7 +75,6 @@ const Header = ({ fixed }) => {
                         >
                             <DateRangeOutlined/>
                         </IconButton>
-                        */}
                     </>
                     ):(
                     <>

@@ -4,8 +4,8 @@ import { Avatar as MaterialAvatar, Typography, Badge } from "@material-ui/core";
 import { MicOffOutlined } from "@material-ui/icons";
 import { useStyles } from "./styles";
 
-const Avatar = ({ image, title, nav, muted, style }) => {
-    const classes = useStyles(style);
+const Avatar = ({ image, title, nav, muted, speaking, style }) => {
+    const classes = useStyles({style, speaking});
     const imgProps = { draggable: "false" }
 
     return (

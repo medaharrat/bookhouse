@@ -187,7 +187,11 @@ const Room = ({ title }) => {
                             {
                                 users.map((user) => (
                                     <Grid item xs={3} key={users.indexOf(user)}>
-                                        <Avatar title={user.name ? user.name.substr(0, 4) : 'Guest'} muted={user.muted} style={avatarStyle}/>
+                                        <Avatar 
+                                            title={user.name ? user.name.substr(0, 4) : 'Guest'} 
+                                            muted={user.muted} style={avatarStyle}
+                                            speaking={false}
+                                        />
                                     </Grid>
                                 ))
                             }
@@ -216,7 +220,7 @@ const Room = ({ title }) => {
                         </IconButton >
                         {/* Raise Hand */}
                         <IconButton id="control-deafen" disableRipple className={classes.controlBtn} onClick={onToggleRaiseHand}>
-                            <PanTool className={(false) ? classes.raised : ''}/>
+                            <PanTool className={(false) ? classes.raised : '✋'}/>
                         </IconButton >
                     </Grid>
                 </Grid>

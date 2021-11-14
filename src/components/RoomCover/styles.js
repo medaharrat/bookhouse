@@ -8,14 +8,11 @@ const useStyles = makeStyles({
     cover: {
         height: 275,
         width: 200
-        //filter: 'blur(1px)',
-        //backgroundImage: props => `url(${props.cover})`,
-        //backgroundSize: "cover",
     },
     colorTag: {
-        backgroundColor: 'orange',
+        backgroundImage: palette.background.gradient,
         width: '100%',
-        height: 5
+        height: 5,
     },
     title: {
         fontSize: 14,
@@ -29,6 +26,13 @@ const useStyles = makeStyles({
         '&:hover':{
             backgroundColor: palette.background.grey,
         }
+    },
+    jumpInBtn: {
+        width: '100%',
+        borderColor: palette.borders.dark
+    },
+    divider: {
+        marginBottom: 10
     }
 })
 

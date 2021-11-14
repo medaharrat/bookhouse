@@ -22,10 +22,10 @@ const Home = () => {
         {id: 4, title: "Science", img: "./img/science_bg.png"},
     ];
     const rooms = [
-        {id: 1, title: "1st Session", category: "The Hobbit", attendees: "10", cover: "./img/book_1.jfif"},
+        {id: 1, title: "📚1st Session", category: "The Hobbit", attendees: "10", cover: "./img/book_1.jfif"},
         {id: 2, title: "Follow up", category: "Game of Thrones", attendees: "15", cover: "./img/got_cover.jfif"},
         {id: 3, title: "Follow up", category: "From Zero to One", attendees: "7", cover: "./img/zero_one_cover.jfif"},
-        {id: 4, title: "Follow up", category: "Ce que le jour doit à la nuit", attendees: "5", cover: "./img/book_5.jfif"},
+        {id: 4, title: "📖 Follow up", category: "Ce que le jour doit à la nuit", attendees: "5", cover: "./img/book_5.jfif"},
     ];
     const books = [
         {id: 1, title: "The Hobbit", author: "JRR. Tolklien", cover: "./img/book_1.jfif"},
