@@ -3,12 +3,14 @@ import palette from "../../../static/palette";
 
 const useStyles = makeStyles({
   navBar: {
+    position: 'fixed',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    top: 'auto',
+    zIndex: 99,
     backgroundColor: palette.background.grey,
     color: palette.text.secondary,
-    boxShadow: 'none',
-    top: 'auto',
-    bottom: 0,
-    zIndex: 99,
     paddingBottom: 'env(safe-area-inset-bottom)',
   },
   grow: {

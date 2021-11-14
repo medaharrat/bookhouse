@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import PropTypes from 'prop-types';
 import { 
-    IconButton, Typography, Box, Grid, Button, Modal
+    IconButton, Typography, Box, Grid, Button, Modal, Card, CardActions, CardContent
 } from "@material-ui/core";
 import {
     PanTool, MicOff, VolumeOff, Mic, VolumeUp
@@ -198,19 +198,19 @@ const Room = ({ title }) => {
                         className={classes.controls}
                     >
                         {/* Disconnect */}
-                        <Button id="control-connect" className={classes.leave} onClick={leave}>
+                        <Button id="control-connect" disableRipple className={classes.leave} onClick={leave}>
                             Leave quickly
                         </Button>
                         {/* Mute */}
-                        <IconButton id="control-mute" className={classes.controlBtn} onClick={onToggleMuted}>
+                        <IconButton id="control-mute" disableRipple className={classes.controlBtn} onClick={onToggleMuted}>
                             { userStatus.muted ? (<MicOff className={classes.controllOff}/>) : (<Mic/>) }
                         </IconButton >
                         {/* Deafen */}
-                        <IconButton id="control-deafen" className={classes.controlBtn} onClick={onToggleDeafened}>
+                        <IconButton id="control-deafen" disableRipple className={classes.controlBtn} onClick={onToggleDeafened}>
                             { userStatus.deafened ? (<VolumeOff className={classes.controllOff}/>) : (<VolumeUp/>) }
                         </IconButton >
                         {/* Raise Hand */}
-                        <IconButton id="control-deafen" className={classes.controlBtn} onClick={onToggleRaiseHand}>
+                        <IconButton id="control-deafen" disableRipple className={classes.controlBtn} onClick={onToggleRaiseHand}>
                             <PanTool className={(false) ? classes.raised : ''}/>
                         </IconButton >
                     </Grid>
@@ -218,18 +218,46 @@ const Room = ({ title }) => {
             </Box>
             <Modal
                 open={modal}
-                onClose={handleClose}
+                onClose={(event, reason) => {
+                    if (reason !== 'backdropClick') {
+                      handleClose();
+                    }
+                }}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        You're about to connect to a room
-                    </Typography>
-                    <Button onClick={onUserConnect}>
-                        Continue
-                    </Button>
-                </Box>
+                <Card className={classes.modal} variant="outlined">
+                    <CardContent>
+                        <Typography color="textSecondary" gutterBottom>
+                            You're about to connect to a room
+                        </Typography>
+                        <div>
+                            {/* Mute */}
+                            <IconButton 
+                                id="control-mute" 
+                                disableRipple 
+                                className={classes.modalController} 
+                                onClick={onToggleMuted}
+                            >
+                                { userStatus.muted ? (<MicOff className={classes.controllOff}/>) : (<Mic/>) }
+                            </IconButton >
+                            {/* Deafen */}
+                            <IconButton 
+                                id="control-deafen" 
+                                disableRipple 
+                                className={classes.modalController} 
+                                onClick={onToggleDeafened}
+                            >
+                                { userStatus.deafened ? (<VolumeOff className={classes.controllOff}/>) : (<VolumeUp/>) }
+                            </IconButton >
+                        </div>
+                    </CardContent>
+                    <CardActions className={classes.modalActions}>
+                        <Button variant="outlined" disableElevation disableRipple onClick={onUserConnect}>
+                            Continue
+                        </Button>
+                    </CardActions>
+                </Card>
             </Modal>
         </Layout>
     );
