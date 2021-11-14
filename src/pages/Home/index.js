@@ -34,6 +34,19 @@ const Home = () => {
         {id: 4, title: "Heal Your Mind Rewire Your Brain", author: "Patt-Lind Kyle", cover: "./img/book_4.jfif"},
         {id: 5, title: "It's about damn time", author: "Arlan Hamilton", cover: "https://assets-global.website-files.com/5f568f3b0b09b038fab5f5e2/616e3780a9f5ae3126ec6049_original.jpg"},
     ];
+
+    const shuffle = (array) =>{
+        let curId = array.length;
+        while (0 !== curId) {
+          let randId = Math.floor(Math.random() * curId);
+          curId -= 1;
+          let tmp = array[curId];
+          array[curId] = array[randId];
+          array[randId] = tmp;
+        }
+        return array;
+    }
+
     useEffect(() => {
         const advertisement = "Check out this month's Belletrist book pick The Days of Afrekete by Asali Solomon.";
        
@@ -51,12 +64,12 @@ const Home = () => {
             <Typography className={classes.subtitle}>
                 Suggested rooms
             </Typography>
-            <div className={classes.swiper}>
+            <div>
                 <Swiper
-                    spaceBetween={20}
-                    slidesPerView={3}
+                    spaceBetween={10}
+                    slidesPerView={2}
                 >
-                    {rooms.map((room) => (
+                    {shuffle(rooms).map((room) => (
                         <SwiperSlide key={room.id}>
                             <RoomCover 
                                 title={room.title} 
@@ -78,7 +91,7 @@ const Home = () => {
                     spaceBetween={20}
                     slidesPerView={3}
                 >
-                   {books.map((book) => (
+                   {shuffle(books).map((book) => (
                         <SwiperSlide key={book.id}>
                             <BookCover 
                                 cover={book.cover}  
@@ -99,15 +112,12 @@ const Home = () => {
                     spaceBetween={20}
                     slidesPerView={3}
                 >
-                   {[{id: 1, title: "A Beatiful Mind", subtitle: "John Nash", cover: "https://assets-global.website-files.com/5f568f3b0b09b038fab5f5e2/616e3780a9f5ae3126ec6049_original.jpg"},
-                    {id: 2, title: "A Beatiful Mind", subtitle: "John Nash", cover: "https://assets-global.website-files.com/5f568f3b0b09b038fab5f5e2/616e3780a9f5ae3126ec6049_original.jpg"},
-                    {id: 3, title: "A Beatiful Mind", subtitle: "John Nash", cover: "https://assets-global.website-files.com/5f568f3b0b09b038fab5f5e2/616e3780a9f5ae3126ec6049_original.jpg"}]
-                    .map((book) => (
+                   {shuffle(books).map((book) => (
                         <SwiperSlide key={book.id}>
                             <BookCover 
                                 cover={book.cover}  
                                 title={book.title} 
-                                subtitle={book.subtitle} 
+                                subtitle={book.author} 
                             />
                         </SwiperSlide>
                     ))}

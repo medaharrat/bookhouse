@@ -17,7 +17,7 @@ const Layout = ({ title, children, ad, alert }) => {
         <SocketContext.Provider value={socket}>
         <div className={classes.layout}>
             {/* Header */}
-            <Header />
+            <Header fixed/>
 
             {/* Ads */}
             {ad && (

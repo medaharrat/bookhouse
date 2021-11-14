@@ -4,7 +4,7 @@ import palette from "../../../static/palette";
 const useStyles = makeStyles({
   header: {
     backgroundColor: palette.background.default,
-    boxShadow: 'none'
+    boxShadow: 'none',
   },
   icon: {
     color: palette.text.grey
@@ -12,6 +12,9 @@ const useStyles = makeStyles({
   grow: {
     flexGrow: 1,
   },
+  divider: {
+    height: 60
+  }
 })
 
 export { useStyles };

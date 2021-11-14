@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import {
     AppBar, IconButton, Badge, Toolbar, Button, Link
 } from "@material-ui/core";
@@ -11,24 +12,27 @@ import {
 import Avatar from '../../Avatar';
 import { useStyles } from "./styles";
 
-const Header = () => {
+const Header = ({ fixed }) => {
     const classes = useStyles();
 
     // Read user details from context
     const userDetails = useAuthState() 
 
     return (
-        <AppBar position="static" className={classes.header}>
+        <>
+        <AppBar position={fixed ? "fixed" : "static"} className={classes.header}>
             <Toolbar>
                 {userDetails.token ? (
                     <>
-                        <IconButton
-                            aria-label="account of current user"
-                            aria-haspopup="true"
-                            color="inherit"
-                        >
-                            <Avatar nav image="https://v4--material-ui-docs.netlify.app/static/images/avatar/1.jpg"/>
-                        </IconButton>
+                        <Link href="/p/2" underline="none">
+                            <IconButton
+                                aria-label="account of current user"
+                                aria-haspopup="true"
+                                color="inherit"
+                            >
+                                <Avatar nav image="https://v4--material-ui-docs.netlify.app/static/images/avatar/1.jpg"/>
+                            </IconButton>
+                        </Link>
                         <div className={classes.grow} />
                         <IconButton
                             aria-label="inbox"
@@ -88,7 +92,17 @@ const Header = () => {
                 )}
             </Toolbar>
         </AppBar>
+        {
+            fixed && (
+                <div className={classes.divider} />
+            )
+        }
+        </>
     )
 }
+
+Header.propTypes = {
+    fixed: PropTypes.bool,
+};
 
 export default Header;
