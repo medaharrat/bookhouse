@@ -8,11 +8,13 @@ import Header from "../Navigation/Header";
 import Navbar from "../Navigation/Navbar";
 import Ad from "../Ad";
 import { useStyles } from "./styles";
-import { SocketContext, socket } from "../../context";
+import { useAuthState, SocketContext, socket } from "../../context";
 
 const Layout = ({ title, children, ad, alert }) => {
     const classes = useStyles();
-    
+    // Read user details from context
+    const userDetails = useAuthState()
+
     return (
         <SocketContext.Provider value={socket}>
         <div className={classes.layout}>
@@ -35,7 +37,11 @@ const Layout = ({ title, children, ad, alert }) => {
                     { children }
                 </Box>
             </Container>
-            <Navbar />
+
+            {/* Navbar */}
+            {userDetails.token && (
+                <Navbar />
+            )}
 
             {/* Alerts */}
             {alert.title && (
