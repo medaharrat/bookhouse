@@ -70,9 +70,9 @@ build-packages:
     - yarn install
     - echo "Server tested completed."
     - yarn build
-    artifacts:
-      paths:
-        - build/
+  artifacts:
+    paths:
+      - build/
 
 
 # Deploy client to netlify
