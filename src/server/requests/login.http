@@ -1,0 +1,21 @@
+#VSC React Client Test
+
+POST https://localhost:8000/api/auth/signup
+Content-Type: application/json
+
+{
+    "name": "TestUser2",
+    "interests": ["Horror", "Sci-fi"]
+}
+
+###
+#Get all Users
+GET https://localhost:8000/api/auth/login
+
+###
+#Get one user by id
+GET https://localhost:8000/api/auth/login/619505c9525e2c7b0f3d7ef5
+
+###
+#Delete by id
+DELETE https://localhost:8000/api/auth/login/61950b686eabe064fb5d991e

@@ -8,6 +8,14 @@ const Express = require("express")
 const SocketIO = require("socket.io")
 const InstallController = require("./socket.node")
 const cors = require('cors');
+const Mongoose = require('mongoose')
+
+// Mongoose connection init
+Mongoose.connect('mongodb://localhost/test', {useNewUrlParser: true})
+const Db = Mongoose.connection
+Db.on('error', (error) => console.error(error))
+//db.once('open', () => console.log('Connected to Database'))
+console.log('Connected to Database')
 
 // Load config
 const config = require('./config.json')
@@ -18,6 +26,7 @@ const server = Express()
 server.set('views', config.server.views)
 server.set("view engine", "ejs")
 server.use(config.server.publicUrl, Express.static(config.server.public))
+server.use(Express.json())
 server.use((req, res, next) => //Custom injection middleware
 {
     req.config = config
