@@ -39,7 +39,7 @@ build-packages:
   image: node:15
   script:
     - yarn install
-    - yarn build
+    - CI= yarn build
   artifacts:
     paths:
       - build/
