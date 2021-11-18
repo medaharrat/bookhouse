@@ -1,15 +1,3 @@
-image: node:12.13.0
-
-# Cache between steps
-cache:
-  paths:
-    - node_modules/
-    - .yarn
-
-# Update before starting
-before_script:  
-  - apt-get update -qq && apt-get install
-
 # Define stages
 stages:
   - version
@@ -31,10 +19,9 @@ version-all:
 # Test client
 test-client:
   stage: test
-  before_script:
-    - yarn config set cache-folder .yarn
-    - yarn install
+  image: node:15
   script:
+    - yarn install
     - echo "Testing client dummy code."
     - sleep 10 #yarn test-client
     - echo "Client tested completed."
@@ -42,10 +29,9 @@ test-client:
 # Test server
 test-server:
   stage: test
-  before_script:
-    - yarn config set cache-folder .yarn
-    - yarn install
+  image: node:15
   script:
+    - yarn install
     - echo "Testing server dummy code."
     - sleep 10 #yarn test-server
     - echo "Server tested completed."
@@ -53,9 +39,7 @@ test-server:
 # Test all
 test-all:
   stage: test
-  before_script:
-    - yarn config set cache-folder .yarn
-    - yarn install
+  image: node:15
   script:
     - echo "Combined testing server dummy code."
     - sleep 10
@@ -64,11 +48,9 @@ test-all:
 # Install dependencies
 build-packages:
   stage: build
-  before_script:
-    - yarn config set cache-folder .yarn
+  image: node:15
   script:
     - yarn install
-    - echo "Server tested completed."
     - yarn build
   artifacts:
     paths:
@@ -78,6 +60,7 @@ build-packages:
 # Deploy client to netlify
 netlify:
   stage: deploy
+  image: node:15
   script:
     - npm install -g netlify-cli
     - netlify deploy --dir=build --prod
