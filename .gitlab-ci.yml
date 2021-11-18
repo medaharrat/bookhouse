@@ -1,20 +1,8 @@
 # Define stages
 stages:
-  - version
   - test
   - build
   - deploy
-
-# Check versions
-version-all:
-  stage: version
-  script:
-    - echo "Node:"
-    - node -v
-    - echo "Npm:"
-    - npm -v
-    - echo "Yarn:"
-    - yarn -v
 
 # Test client
 test-client:
