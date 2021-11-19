@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import {
-    AppBar, IconButton, Badge, Toolbar, Button, Link
+    AppBar, IconButton, Badge, Toolbar, Button
 } from "@material-ui/core";
 import {
     DraftsOutlined, DateRangeOutlined, NotificationsNoneOutlined
@@ -11,6 +11,7 @@ import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import { useAuthState, logout, useAuthDispatch } from '../../../context';
 import { useLocation, useNavigate } from "react-router-dom";
 import Avatar from '../../Avatar';
+import { Link } from "react-router-dom";
 import { useStyles } from "./styles";
 
 const Header = ({ fixed }) => {
@@ -63,14 +64,14 @@ const Header = ({ fixed }) => {
                         </>
                     ) : (
                         <>
-                            <Link href="/p/2" underline="none">
-                                <IconButton
-                                    aria-label="account"
-                                    color="inherit"
-                                >
-                                    <Avatar nav image="https://v4--material-ui-docs.netlify.app/static/images/avatar/1.jpg"/>
-                                </IconButton>
-                            </Link>
+                            <IconButton
+                                aria-label="account"
+                                color="inherit"
+                                component={Link}
+                                to="/p/2"
+                            >
+                                <Avatar nav image="https://v4--material-ui-docs.netlify.app/static/images/avatar/1.jpg"/>
+                            </IconButton>
                             <div className={classes.grow} />
                             <IconButton
                                 aria-label="inbox"
@@ -117,11 +118,16 @@ const Header = ({ fixed }) => {
                     ):(
                     <>
                         <div className={classes.grow} />
-                        <Link href="/login" underline="none">
-                            <Button variant="outlined" color="primary" disableRipple disableElevation>
-                                Join
-                            </Button>
-                        </Link>
+                        <Button 
+                            variant="outlined" 
+                            color="primary" 
+                            disableRipple 
+                            disableElevation
+                            component={Link} 
+                            to="/login"
+                        >
+                            Join
+                        </Button>
                     </>
                 )}
             </Toolbar>

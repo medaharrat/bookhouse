@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import {
-    Paper, Button, Link, Typography
+    Paper, Button, Typography
 } from '@material-ui/core';
+import { Link } from "react-router-dom";
 import { useStyles } from "./styles";
 
 const Ad = ({ href, children }) => {
@@ -14,11 +15,15 @@ const Ad = ({ href, children }) => {
                 { children }
             </Typography>
             
-            <Link href={href} className={classes.link}>
-                <Button className={classes.btn} variant="outlined" disableRipple>
-                    Learn more 
-                </Button>
-            </Link>
+            <Button 
+                className={classes.btn} 
+                component={Link} 
+                to="#" 
+                variant="outlined" 
+                disableRipple
+            >
+                Learn more 
+            </Button>
         </Paper>
     )
 }

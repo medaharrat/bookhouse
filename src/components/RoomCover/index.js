@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import {
-    Grid, Card, CardActions, CardContent , Typography, Button, Link
+    Grid, Card, CardActions, CardContent , Typography, Button
 } from "@material-ui/core";
 import PersonIcon from '@material-ui/icons/Person';
+import { Link } from "react-router-dom";
 import { useStyles } from "./styles";
 
 const RoomCover = ({ title, category, numPeople, cover }) => {
@@ -34,16 +35,15 @@ const RoomCover = ({ title, category, numPeople, cover }) => {
                     </Grid>
                 </CardContent>
                 <CardActions disableSpacing>
-                    <Link href="/r" underline="none" className={classes.jumpIn}>
-                        <Button 
-                            variant="outlined"
-                            disableRipple
-                            disableElevation
-                            className={classes.jumpInBtn}
-                        >
-                            Jump in
-                        </Button>
-                    </Link>
+                    <Button 
+                        variant="outlined"
+                        disableRipple
+                        disableElevation
+                        className={classes.jumpInBtn}
+                        component={Link} to="/r"
+                    >
+                        Jump in
+                    </Button>
                 </CardActions>
             </Card>
             <div className={classes.divider} />
