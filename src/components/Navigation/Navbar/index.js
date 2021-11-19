@@ -5,6 +5,7 @@ import {
 import {
   Home, Search, Apps
 } from '@material-ui/icons';
+import { Link } from "react-router-dom";
 import { useStyles } from './styles';
 
 const NavigationBar = () => { 
@@ -21,8 +22,8 @@ const NavigationBar = () => {
       <Toolbar>
         {/* Apps */}
         <div className={classes.grow}>
-          <IconButton aria-label="Inbox">
-          <Apps/>
+          <IconButton aria-label="Inbox" component={Link} to="/home" >
+            <Apps/>
           </IconButton>
         </div>
         {/* Start a room */}
@@ -33,7 +34,7 @@ const NavigationBar = () => {
         {/* Search */}
         <div className={classes.grow}>
           <IconButton aria-label="Inbox">
-          <Search/>
+            <Search/>
           </IconButton>
         </div>
       </Toolbar>
