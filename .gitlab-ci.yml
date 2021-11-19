@@ -48,6 +48,8 @@ build-packages:
 # Deploy client to netlify
 netlify:
   stage: deploy
+  only:
+    - main
   image: node:15
   script:
     - npm install -g netlify-cli
