@@ -18,10 +18,10 @@ const BookCover = ({title, subtitle, cover}) => {
                 (title.length > 0) && (
                     <>
                         <Typography variant="body2" className={classes.title}>
-                            { title.length <= 16 ? title : `${title.substr(0, 15)} ...` }
+                            { title && title.length <= 16 ? title : `${title.substr(0, 15)} ...` }
                         </Typography>
                         <Typography variant="body2" className={classes.subtitle}>
-                            { subtitle.length <= 16 ? subtitle : `${subtitle.substr(0, 14)} ...` }
+                            { subtitle && subtitle.length <= 16 ? subtitle : `${subtitle.substr(0, 14)} ...` }
                         </Typography>
                     </>
                 )

@@ -5,7 +5,7 @@ import {
 import TabPanel from './TabPanel';
 import { useStyles } from './styles';
 
-const ProfileTabs = () => {
+const ProfileTabs = (props) => {
   
   const classes = useStyles();
   const [value, setValue] = useState(1);

@@ -20,7 +20,7 @@ const useStyles = makeStyles({
     btn: {
         textTransform: 'none',
         boxShadow: 'none',
-        fontFamily: 'Poppins Regular'
+        fontFamily: 'Poppins Regular',
     },
     imgWrap: {
         textAlign: 'center',

@@ -4,6 +4,7 @@ import Login from './Auth/Login';
 import Register from './Auth/Register';
 import Profile from './Profile';
 import Splash from './SplashScreen';
+import RequireAuth from '../components/Utils/RequireAuth';
 
 const routes = [
     {
@@ -13,13 +14,21 @@ const routes = [
     },
     {
         name: "home",
-        path: "/h",
-        element: <Home />,
+        path: "/home",
+        element: (
+            <RequireAuth>
+                <Home />
+            </RequireAuth>
+        ),
     },
     {
         name: "room",
         path: "/r",
-        element: <Room title="De la haine à Hollywood by Said Taghmaoui"/>,
+        element: (
+            <RequireAuth>
+                <Room title="De la haine à Hollywood by Said Taghmaoui"/>
+            </RequireAuth>
+        ),
     },
     {
         name: "login",
@@ -34,7 +43,11 @@ const routes = [
     {
         name: "profile",
         path: "/p/:userId",
-        element: <Profile />,
+        element: (
+            <RequireAuth>
+                <Profile />
+            </RequireAuth>
+        ),
     },
 ]
 

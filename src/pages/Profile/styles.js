@@ -4,6 +4,9 @@ const useStyles = makeStyles({
     padding: {
         padding: 10
     },
+    profile: {
+        height: '85vh'
+    },
     btn: {
         textTransform: 'none',
         boxShadow: 'none',

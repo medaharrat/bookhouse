@@ -8,12 +8,14 @@ import {
 } from "@material-ui/icons";
 import Avatar from "../../components/Avatar";
 import Layout from "../../components/Layout";
-import { SocketContext } from "../../context/socket";
+import { SocketContext } from "../../context/index";
+import { useNavigate } from "react-router-dom";
 import { useStyles } from "./styles.js";
 import _ from "../../server/config.json";
 
 const Room = ({ title }) => {
     const classes = useStyles();
+    const navigate = useNavigate();
 
     //Read config
     const config = _.socket
@@ -28,9 +30,8 @@ const Room = ({ title }) => {
         deafened: config.stateDefault.deafened,
         connected: config.stateDefault.connected,            
     })
+
     const avatarStyle = { height: 70, width: 70 }
-
-
 
     const initializeMedia = () => {
         // Initialize Media
@@ -128,9 +129,13 @@ const Room = ({ title }) => {
     // Events
     const leave = (e) => {
         e.preventDefault()
+        // Disconnect user
         userStatus.connected = false
         emitUserChange()
-        alert("You left this chat!")
+        // Inform the user of disconnection
+        alert("You're disconnected!")
+        // Redirect to home
+        navigate('/home');
     }
 
     const onUserConnect = (e) => {
@@ -182,7 +187,11 @@ const Room = ({ title }) => {
                             {
                                 users.map((user) => (
                                     <Grid item xs={3} key={users.indexOf(user)}>
-                                        <Avatar title={user.name ? user.name.substr(0, 4) : 'Guest'} muted={user.muted} style={avatarStyle}/>
+                                        <Avatar 
+                                            title={user.name ? user.name.substr(0, 4) : 'Guest'} 
+                                            muted={user.muted} style={avatarStyle}
+                                            speaking={user.connected && !user.muted}
+                                        />
                                     </Grid>
                                 ))
                             }
@@ -211,7 +220,7 @@ const Room = ({ title }) => {
                         </IconButton >
                         {/* Raise Hand */}
                         <IconButton id="control-deafen" disableRipple className={classes.controlBtn} onClick={onToggleRaiseHand}>
-                            <PanTool className={(false) ? classes.raised : ''}/>
+                            <PanTool className={(false) ? classes.raised : '✋'}/>
                         </IconButton >
                     </Grid>
                 </Grid>

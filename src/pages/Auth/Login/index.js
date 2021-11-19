@@ -1,31 +1,47 @@
 import React, { useState } from "react";
+import { loginUser, useAuthState, useAuthDispatch } from '../../../context';
 import Layout from "../../../components/Layout";
 import {
     Typography, TextField, Button, Grid, FormControl, Link
 } from "@material-ui/core";
+import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
 import { useStyles } from "./styles";
 
 const Login = () => {
-
+    const classes = useStyles();
+    const navigate = useNavigate();
+    const [alert, setAlert] = useState({title: '', type: 'warning'})
     const [values, setValues] = useState({
         email: '',
         password: '',
     });
 
-    const classes = useStyles();
+    // Get the dispatch method from the useDispatch custom hook
+    const dispatch = useAuthDispatch()
+    // Read the values of loading and errorMessage from context
+    const { loading, errorMessage } = useAuthState() 
 
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault()
-        console.log(`> Login ${JSON.stringify(values)}`)
+        try { 
+            // loginUser action makes the request and handles all the neccessary state changes
+            let response = await loginUser(dispatch, values) 
+            if (!response.user) return
+            // Navigate to dashboard on success | email: nero@admin.com and password: admin123
+            navigate('/home')
+        } catch (error) {
+            setAlert({...alert, title: "Invalid username or password."})
+            console.log(`Login error: ${error}`);
+        }
     };
 
     return (
-        <Layout>
+        <Layout alert={alert}>
             <Grid
                 container
                 lg={4} md={4} xs={12}
@@ -65,7 +81,8 @@ const Login = () => {
                             size="large" 
                             disableRipple
                             disableElevation
-                            onClick={handleSubmit}
+                            onClick={handleLogin}
+                            disabled={loading}
                         >
                             Sign in
                         </Button>
@@ -73,7 +90,7 @@ const Login = () => {
                 </Grid>
                 <Grid item sm={12}>
                     <Typography variant="body2" className={clsx(classes.subtitle, classes.center)}>
-                        <Link href="#">Forgot your password?</Link>
+                        Don't have an account? <Link href="/register">register</Link>.
                     </Typography>
                 </Grid>
             </Grid>
