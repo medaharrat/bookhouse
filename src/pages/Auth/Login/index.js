@@ -90,7 +90,7 @@ const Login = () => {
                 </Grid>
                 <Grid item sm={12}>
                     <Typography variant="body2" className={clsx(classes.subtitle, classes.center)}>
-                        <Link href="#">Forgot your password?</Link>
+                        Don't have an account? <Link href="/register">register</Link>.
                     </Typography>
                 </Grid>
             </Grid>
