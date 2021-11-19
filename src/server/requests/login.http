@@ -4,7 +4,7 @@ POST https://localhost:8000/api/auth/signup
 Content-Type: application/json
 
 {
-    "name": "TestUser2",
+    "name": "TestUser",
     "interests": ["Horror", "Sci-fi"]
 }
 
@@ -18,4 +18,17 @@ GET https://localhost:8000/api/auth/login/619505c9525e2c7b0f3d7ef5
 
 ###
 #Delete by id
-DELETE https://localhost:8000/api/auth/login/61950b686eabe064fb5d991e
+DELETE https://localhost:8000/api/auth/login/61950b7f6eabe064fb5d9922
+
+
+###
+#Update user by id
+
+PATCH https://localhost:8000/api/auth/login/619515019fb45c3950edfb1e
+Content-Type: application/json
+
+{
+    "name": "ModifiedUser2",
+    "interests": ["Not Horror", "Sci-fi"]
+    "joinedRooms": ["FirstRoom"]
+}
