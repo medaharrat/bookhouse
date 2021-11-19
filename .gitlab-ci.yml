@@ -51,4 +51,4 @@ netlify:
   image: node:15
   script:
     - npm install -g netlify-cli
-    - npx netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
+    - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
