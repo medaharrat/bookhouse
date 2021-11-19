@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 import {
-    Typography, Button, Grid
+    Typography, Grid
 } from "@material-ui/core";
 import Layout from "../../components/Layout";
 import Avatar from "../../components/Avatar";
