@@ -3,6 +3,6 @@ import { AuthProvider, useAuthDispatch, useAuthState } from './Contexts/auth.con
 import { UserProvider, useUserDispatch, useUserState } from './Contexts/user.context';
 import { socket, SocketContext } from './Contexts/socket.context';
  
-export { AuthProvider, useAuthState, useAuthDispatch, loginUser, logout };
+export { AuthProvider, useAuthState, useAuthDispatch, loginUser, register, logout };
 export { UserProvider, useUserDispatch, useUserState };
 export { socket, SocketContext };

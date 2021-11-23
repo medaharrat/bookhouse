@@ -1,5 +1,5 @@
 const ROOT_URL = 'https://secret-hamlet-03431.herokuapp.com'; // API Link
-
+const API_URL = 'https://localhost:8000/api';
 // Log in
 export async function loginUser(dispatch, payload) {
   const requestOptions = {
@@ -33,13 +33,12 @@ export async function register(dispatch, payload) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
   };
- 
   try {
     dispatch({ type: 'REQUEST_REGISTER' });
-    let response = await fetch(`${ROOT_URL}/register`, requestOptions);
+    let response = await fetch(`${API_URL}/auth/signup`, requestOptions);
     let data = await response.json();
  
-    if (data.user) {
+    if (data) {
       dispatch({ type: 'REGISTER_SUCCESS', payload: data });
       localStorage.setItem('currentUser', JSON.stringify(data));
       return data

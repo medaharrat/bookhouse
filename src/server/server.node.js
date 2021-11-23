@@ -7,19 +7,20 @@ const Https = require("https")
 const Express = require("express")
 const SocketIO = require("socket.io")
 const InstallController = require("./socket.node")
-const cors = require('cors');
 const Mongoose = require('mongoose')
 
-// Mongoose connection init
-Mongoose.connect('mongodb://localhost/test', {useNewUrlParser: true})
-const Db = Mongoose.connection
-Db.on('error', (error) => console.error(error))
-//db.once('open', () => console.log('Connected to Database'))
-console.log('Connected to Database')
+// Mongoose settings
+// Connect to a local DB
+// Mongoose.connect('mongodb://localhost/test', {useNewUrlParser: true})
+// Connect to MongoDB Atlas
+const connectionString = 'mongodb+srv://root:admin123@bookhousecluster.tejiq.mongodb.net/bookhouse'
+Mongoose.connect(connectionString)
+const db = Mongoose.connection
+db.once('open', () => console.log('Connected to Database'))
+db.on('error', (error) => console.error(`Error with the database connection: ${error}`))
 
 // Load config
 const config = require('./config.json')
-
 
 // Create express server
 const server = Express()

@@ -3,7 +3,6 @@
 // External Modules
 const Express = require('express')
 
-
 // Create router
 const router = Express.Router()
 
@@ -14,14 +13,11 @@ const User = require('../models/user.model')
 // Register local
 router.post("/signup" , async (req , res) =>
 {
-    /*res.render("main",
-    {
-        page: './room',
-        config: req.config.socket
-    })*/
-    //console.log("Server says Hi!")
     const UserBySchema = new User({
-        name: req.body.name,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        password: req.body.password,
         registerDate: Date.now(),
         lastLoginDate: null,
         joinedRooms: [],
