@@ -4,13 +4,25 @@ POST https://localhost:8000/api/auth/signup
 Content-Type: application/json
 
 {
-    "name": "TestUser",
-    "interests": ["Horror", "Sci-fi"]
+    "firstName": "Test",
+    "lastName": "User",
+    "email": "test2@email.com",
+    "password": "passwd",
+    "password2": "passwd"
 }
+###
+POST https://localhost:8000/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "test2@email.com",
+    "password": "passwd"
+}
+
 
 ###
 #Get all Users
-GET https://localhost:8000/api/auth/login
+GET https://localhost:8000/debug/
 
 ###
 #Get one user by id

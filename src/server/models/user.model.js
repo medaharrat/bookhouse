@@ -3,8 +3,21 @@ const Mongoose = require('mongoose')
 // User schema, can be modified easily
 
 const userSchema = new Mongoose.Schema({
-    name: {
-        type: String
+    firstName: {
+        type: String,
+        required: true
+    },
+    lastName: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
     },
     registerDate: {
         type: Date,
@@ -15,24 +28,19 @@ const userSchema = new Mongoose.Schema({
         type: Date
     },
     joinedRooms: {
-        type: []
+        type: [],
+        default: () => {return []}
     },
     interests: {
-        type: []
-    },
-    password: {
-        type: String,
-        required: true
+        type: [],
+        default: () => {return []}
     },
     profileImageURL: {
         type: String,
         required: true,
         default: "./images/userdefault.jpg"
     },
-    username: {
-        type: String,
-        required: true
-    }
+    
 })
 
 const model = Mongoose.model('User', userSchema)
