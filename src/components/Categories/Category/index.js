@@ -12,7 +12,7 @@ const Category = ({ category }) => {
       <Card className={classes.category} variant="outlined">
         <CardMedia
           className={classes.cover}
-          image={ category.bg }
+          image={ category.img }
           title={ category.title }
         />
         <div className={classes.details}>

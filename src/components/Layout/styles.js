@@ -9,10 +9,15 @@ const useStyles = makeStyles({
         display: 'block',
         color: palette.text.primary,
         fontWeight: 800,
-        textAlign: "center",
+        textAlign: 'center',
         padding: 20,
         userSelect: 'none'
     },
+    alert: {
+        marginTop: 70,
+        width: '400px',
+        margin: 'auto'
+    }
 })
 
 export { useStyles };

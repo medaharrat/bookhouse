@@ -3,6 +3,7 @@ const palette = {
     default: '#FDFDFD',
     grey: '#F1F1F1',
     darkgrey: '#D0D0D0',
+    smooth: 'rgb(241, 241, 241, 0.9)',
     gradient: 'linear-gradient(120deg, #f093fb 0%, #f5576c 100%)'
   },
   text: {
@@ -18,6 +19,7 @@ const palette = {
   },
   borders: {
     light: '#e5e5e5',
+    dark: '#D0D0D0',
   }
 };
   

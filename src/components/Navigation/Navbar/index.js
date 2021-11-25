@@ -1,28 +1,45 @@
 import React from 'react';
-import { Home, Search, Apps } from '@material-ui/icons';
-import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import {
+  AppBar, Toolbar, IconButton, Button
+} from '@material-ui/core';
+import {
+  Home, Search, Apps
+} from '@material-ui/icons';
+import { Link } from "react-router-dom";
 import { useStyles } from './styles';
 
 const NavigationBar = () => { 
-    const pathname = window.location.pathname;
-    const [value, setValue] = React.useState(pathname);
-    const classes = useStyles();
+  const classes = useStyles();
+
+  const pages = [
+    {title: 'Home', icon: <Home/>, link: "/"}, 
+    {title: 'Search', icon: <Search/>, link: "/"}, 
+    {title: 'Library', icon: <Apps/>, link: "/"}
+  ];
+
   return (
-      <BottomNavigation className={classes.navBar}
-        showLabels
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue)
-        }
-        }
-      >
-        <BottomNavigationAction label="Home" icon={<Home />} component={Link} to="/h" value="/h" />
-        <BottomNavigationAction label="Search" icon={<Search />} component={Link} to="/" value="/" />
-        <BottomNavigationAction label="Library" icon={<Apps />} component={Link} to="/login" value="/login" />
-      </BottomNavigation>
-
+    <AppBar className={classes.navBar}>
+      <Toolbar>
+        {/* Apps */}
+        <div className={classes.grow}>
+          <IconButton aria-label="Inbox" component={Link} to="/home" >
+            <Apps/>
+          </IconButton>
+        </div>
+        {/* Start a room */}
+        <Button className={classes.start} disableElevation>
+          <span className={classes.plus}>+</span>
+          Start a room
+        </Button>
+        {/* Search */}
+        <div className={classes.grow}>
+          <IconButton aria-label="Inbox">
+            <Search/>
+          </IconButton>
+        </div>
+      </Toolbar>
+    </AppBar>
   );
-};
 
+}
 export default NavigationBar;

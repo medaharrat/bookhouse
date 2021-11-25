@@ -19,8 +19,8 @@ const useStyles = makeStyles({
         textAlign: 'center',
     },
     cover: {
-        height: '90%',
-        width: '90%',
+        height: 220,
+        width: 137,
         borderRadius: 8
     },
 })

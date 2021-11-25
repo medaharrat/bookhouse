@@ -3,7 +3,9 @@ import {
     Typography, Button
 } from '@material-ui/core';
 import Layout from "../../components/Layout";
+import { Link } from "react-router-dom";
 import { useStyles } from "./styles";
+
 
 const SplashScreen = () => {
     const classes = useStyles();
@@ -21,6 +23,7 @@ const SplashScreen = () => {
                     size="large" 
                     disableRipple
                     disableElevation
+                    component={Link} to="/login"
                 >
                     Find your club
                 </Button>
