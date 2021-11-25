@@ -3,8 +3,9 @@
     "server": {
         "database": {
             "protocol": "mongodb",
-            "database": "test",
-            "host": "localhost"
+            "host": "localhost",
+            "port": "27017",
+            "database": "test"
         },
         "port": 8000,
         "views": "../pages",

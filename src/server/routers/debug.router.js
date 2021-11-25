@@ -12,8 +12,9 @@ const User = require('../models/user.model')
 
 
 // For tests, get all the users
-router.get("/login" , async (req , res) =>
+router.get("/" , async (req , res) =>
 {
+    req.session.test = 'Test Message for cookie'
     try {
         const allUsers = await User.find()
         res.status(200).json(allUsers)

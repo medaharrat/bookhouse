@@ -9,16 +9,29 @@ const SocketIO = require("socket.io")
 const InstallController = require("./socket.node")
 const cors = require('cors');
 const Mongoose = require('mongoose')
+const session = require('express-session')
+const MongoDBSession = require('connect-mongodb-session')(session)
+
 
 // Load config
 const config = require('./config.json')
 
+console.log(`${config.server.database.protocol}://${config.server.database.host}:${config.server.database.port}/${config.server.database.database}`)
 // Mongoose connection init
-Mongoose.connect(`${config.server.database.protocol}://${config.server.database.database}/${config.server.database.host}`, {useNewUrlParser: true})
+Mongoose
+    .connect(`${config.server.database.protocol}://${config.server.database.host}:${config.server.database.port}/${config.server.database.database}`,
+    {useNewUrlParser: true, useUnifiedTopology: true}).then((res) => {
+        console.log('Connected to Database')
+    })
 const Db = Mongoose.connection
 Db.on('error', (error) => console.error(error))
 //db.once('open', () => console.log('Connected to Database'))
-console.log('Connected to Database')
+
+
+const store = new MongoDBSession({
+    uri: `${config.server.database.protocol}://${config.server.database.host}:${config.server.database.port}/${config.server.database.database}`,
+    collection: 'Sessions'
+})
 
 // Create express server
 const server = Express()
@@ -26,6 +39,15 @@ server.set('views', config.server.views)
 server.set("view engine", "ejs")
 server.use(config.server.publicUrl, Express.static(config.server.public))
 server.use(Express.json())
+
+// We don't want to create a new session for every request (resave: false)
+// And if we didn't touch (or modify) the session, we don't want to save it
+server.use(session({
+    secret: "cookie-signer string",
+    resave: false,
+    saveUninitialized: false,
+    store: store
+}))
 server.use((req, res, next) => //Custom injection middleware
 {
     req.config = config
@@ -42,7 +64,7 @@ for (const router of config.server.routers)
     server.use(router.url, require(router.module))
 }
 if (config.debug) {
-    server.use("/debug", "./routers/debug.router")
+    server.use('/debug', require('./routers/debug.router'))
 }
 console.log('Done.')
 
