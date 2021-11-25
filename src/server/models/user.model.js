@@ -1,8 +1,11 @@
 const Mongoose = require('mongoose')
+const passportLocalMongoose = require('passport-local-mongoose');
 
-// User schema, can be modified easily
-
-const userSchema = new Mongoose.Schema({
+const UserSchema = new Mongoose.Schema({
+    username: {
+        type: String,
+        required: [true, 'Username is required'] 
+    },
     firstname: {
         type: String,
         required: [true, 'First name is required']
@@ -33,6 +36,8 @@ const userSchema = new Mongoose.Schema({
     interests: {
         type: []
     }
-}, { collection: 'users'})
+})
 
-module.exports = Mongoose.model('User', userSchema)
+UserSchema.plugin(passportLocalMongoose);
+
+module.exports = Mongoose.model('User', UserSchema)

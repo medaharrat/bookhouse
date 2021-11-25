@@ -1,12 +1,3 @@
-import React, { useReducer } from "react";
-
-let user = localStorage.getItem("currentUser")
-  ? JSON.parse(localStorage.getItem("currentUser")).user
-  : "";
-let token = localStorage.getItem("currentUser")
-  ? JSON.parse(localStorage.getItem("currentUser")).auth_token
-  : "";
-
 export const initialState = {
     id: "1",
     profile_image: "https://v4--material-ui-docs.netlify.app/static/images/avatar/1.jpg",

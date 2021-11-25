@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { loginUser, useAuthState, useAuthDispatch } from '../../../context';
+import { login, useAuthState, useAuthDispatch } from '../../../context';
 import Layout from "../../../components/Layout";
 import {
     Typography, TextField, Button, Grid, FormControl, Link
@@ -29,14 +29,15 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault()
         try { 
-            // loginUser action makes the request and handles all the neccessary state changes
-            let response = await loginUser(dispatch, values) 
-            if (!response.user) return
+            // login action makes the request and handles all the neccessary state changes
+            let response = await login(dispatch, values) 
+            if (!response) return
             // Navigate to dashboard on success | email: nero@admin.com and password: admin123
             navigate('/home')
         } catch (error) {
             setAlert({...alert, title: "Invalid username or password."})
             console.log(`Login error: ${error}`);
+            console.log(errorMessage)
         }
     };
 

@@ -1,19 +1,20 @@
 'use strict'
 
 // External Modules
-const Express = require('express')
+const express = require('express')
+const passport = require('passport')
 
 // Create router
-const router = Express.Router()
+const router = express.Router()
 
 // User Schema
 const User = require('../models/user.model')
-
 
 // Register local
 router.post("/signup" , async (req , res) =>
 {
     const UserBySchema = new User({
+        username: `${req.body.firstname.substr(1, 3)}-${req.body.lastname.substr(1, 3)}`,
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         email: req.body.email,
@@ -24,14 +25,32 @@ router.post("/signup" , async (req , res) =>
         interests: req.body.interests
     })
     try {
-        const newUser = await UserBySchema.save()
         // Succesfully created object
-        res.status(201).json(newUser)
+        await User.register(UserBySchema, req.body.password, function(err, user) {
+            if (err) {
+                res.send(err)
+            }
+            res.status(200).json(user)
+            passport.authenticate('local')(req, res, function () {
+                res.status(200)
+            });
+        });
+
     } catch (error) {
         res.status(400).send({message: error.message})
     }
 })
 
+router.post("/login", async (req, res) => {
+    try {
+        passport.authenticate('local')(req, res, function () {
+            res.status(200).json(res)
+        });
+        
+    } catch (error) {
+        res.status(500).send({message: error.message})
+    }
+})
 
 // For tests, get all the users
 router.get("/login" , async (req , res) =>
