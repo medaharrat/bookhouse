@@ -10,16 +10,15 @@ const InstallController = require("./socket.node")
 const cors = require('cors');
 const Mongoose = require('mongoose')
 
+// Load config
+const config = require('./config.json')
+
 // Mongoose connection init
-Mongoose.connect('mongodb://localhost/test', {useNewUrlParser: true})
+Mongoose.connect(`${config.server.database.protocol}://${config.server.database.database}/${config.server.database.host}`, {useNewUrlParser: true})
 const Db = Mongoose.connection
 Db.on('error', (error) => console.error(error))
 //db.once('open', () => console.log('Connected to Database'))
 console.log('Connected to Database')
-
-// Load config
-const config = require('./config.json')
-
 
 // Create express server
 const server = Express()
@@ -41,6 +40,9 @@ for (const router of config.server.routers)
 {
     console.log(`   > (${router.module}) -> {${router.url}}`)
     server.use(router.url, require(router.module))
+}
+if (config.debug) {
+    server.use("/debug", "./routers/debug.router")
 }
 console.log('Done.')
 

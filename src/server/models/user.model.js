@@ -4,13 +4,12 @@ const Mongoose = require('mongoose')
 
 const userSchema = new Mongoose.Schema({
     name: {
-        type: String,
-        required: true
+        type: String
     },
     registerDate: {
         type: Date,
         required: true,
-        default: Date.now()
+        default: () => {return Date.now()}
     },
     lastLoginDate: {
         type: Date
@@ -20,7 +19,29 @@ const userSchema = new Mongoose.Schema({
     },
     interests: {
         type: []
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    profileImageURL: {
+        type: String,
+        required: true,
+        default: "./images/userdefault.jpg"
+    },
+    username: {
+        type: String,
+        required: true
     }
 })
 
-module.exports = Mongoose.model('User', userSchema)
+const model = Mongoose.model('User', userSchema)
+model.expose = function(user) {
+    return {
+        name: user.name,
+        username: user.username
+    }
+}
+
+module.exports = model
+

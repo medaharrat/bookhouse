@@ -1,5 +1,11 @@
 {
+    "debug": true,
     "server": {
+        "database": {
+            "protocol": "mongodb",
+            "database": "test",
+            "host": "localhost"
+        },
         "port": 8000,
         "views": "../pages",
         "public": "../../public",
@@ -18,6 +24,10 @@
             {
                 "module": "./routers/auth.router",
                 "url": "/api/auth/"
+            },
+            {
+                "module": "./routers/user.router",
+                "url": "/api/user/"
             }
         ]
     },
