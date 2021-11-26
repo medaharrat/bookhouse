@@ -33,13 +33,13 @@ const Register = () => {
         try { 
             // loginUser action makes the request and handles all the neccessary state changes
             let response = await register(dispatch, values) 
-            if (!response) return
+            if (!response)
+                console.log(errorMessage)
             // Navigate to login
             navigate('/login')
         } catch (error) {
             setAlert({...alert, title: "Something is wrong."})
             console.log(`Register error: ${error}`);
-            console.log(errorMessage)
         }
         console.log(`> Register ${JSON.stringify(values)}`)
     };

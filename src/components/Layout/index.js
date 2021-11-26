@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import {
-    Container, Typography, Box, Popover
+    Container, Typography, Box
 } from "@material-ui/core";
 import Alert from '@material-ui/lab/Alert';
 import Header from "../Navigation/Header";
