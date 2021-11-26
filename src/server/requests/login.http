@@ -44,3 +44,18 @@ Content-Type: application/json
     "interests": ["Not Horror", "Sci-fi"]
     "joinedRooms": ["FirstRoom"]
 }
+
+
+###
+POST https://localhost:8000/create
+Content-Type: application/json
+
+{
+    "title": "Test2",
+    "category": "Testcateg2",
+    "attendees": 419
+}
+
+
+###
+DELETE https://localhost:8000/delete/5

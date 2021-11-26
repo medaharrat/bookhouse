@@ -2,10 +2,11 @@
     "debug": true,
     "server": {
         "database": {
-            "protocol": "mongodb",
-            "host": "localhost",
-            "port": "27017",
-            "database": "test"
+            "protocol": "mongodb+srv",
+            "user": "root",
+            "password": "admin123",
+            "host": "bookhousecluster.tejiq.mongodb.net",
+            "database": "bookhouse?retryWrites=true&w=majority"
         },
         "port": 8000,
         "views": "../pages",
@@ -28,7 +29,11 @@
             },
             {
                 "module": "./routers/user.router",
-                "url": "/api/user/"
+                "url": "/user/"
+            },
+            {
+                "module": "./routers/book.router",
+                "url": "/book/"
             }
         ]
     },

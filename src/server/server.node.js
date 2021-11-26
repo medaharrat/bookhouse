@@ -15,11 +15,11 @@ const MongoDBSession = require('connect-mongodb-session')(session)
 
 // Load config
 const config = require('./config.json')
-
-console.log(`${config.server.database.protocol}://${config.server.database.host}:${config.server.database.port}/${config.server.database.database}`)
+const connectionString = `${config.server.database.protocol}://${config.server.database.user}:${config.server.database.password}@${config.server.database.host}/${config.server.database.database}` 
+console.log(connectionString)
 // Mongoose connection init
 Mongoose
-    .connect(`${config.server.database.protocol}://${config.server.database.host}:${config.server.database.port}/${config.server.database.database}`,
+    .connect(connectionString,
     {useNewUrlParser: true, useUnifiedTopology: true}).then((res) => {
         console.log('Connected to Database')
     })
@@ -29,7 +29,7 @@ Db.on('error', (error) => console.error(error))
 
 
 const store = new MongoDBSession({
-    uri: `${config.server.database.protocol}://${config.server.database.host}:${config.server.database.port}/${config.server.database.database}`,
+    uri: connectionString,
     collection: 'Sessions'
 })
 
