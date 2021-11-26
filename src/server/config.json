@@ -12,12 +12,16 @@
         "routers":
         [
             {
-                "module": "./routers/room.router",
-                "url": "/"
-            },
-            {
                 "module": "./routers/auth.router",
                 "url": "/api/auth/"
+            },
+            {
+                "module": "./routers/room.router",
+                "url": "/api/room"
+            },
+            {
+                "module": "./routers/book.router",
+                "url": "/api/book"
             }
         ]
     },

@@ -16,6 +16,7 @@ const Layout = ({ title, children, ad, alert }) => {
     const auth = useAuthState()
     console.log(auth)
     return (
+
         <div className={classes.layout}>
             {/* Header */}
             <Header fixed/>
@@ -54,6 +55,7 @@ const Layout = ({ title, children, ad, alert }) => {
             </div>          
             )}
         </div>
+        
     )
 }
 

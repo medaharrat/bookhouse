@@ -36,7 +36,7 @@ const UserSchema = new Mongoose.Schema({
     interests: {
         type: []
     }
-})
+}, {collection: 'users'})
 
 UserSchema.plugin(passportLocalMongoose);
 

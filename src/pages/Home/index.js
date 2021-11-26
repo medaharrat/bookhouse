@@ -10,22 +10,25 @@ import clsx from "clsx";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 import { useStyles } from "./styles";
+import { 
+    getRooms, useRoomDispatch, useRoomState,
+    getBooks, useBookDispatch, useBookState
+} from "../../context";
 
 const Home = () => {
     const classes = useStyles();
     const [ad, setAd] = useState('');
+    const { rooms } = useRoomState();
+    // const { books } = useBookState();
+    
+    const roomDispatch = useRoomDispatch();
+    const bookDispatch = useBookDispatch();
 
     const categories = [
         {id: 1, title: "History", img: "./img/history_bg.jfif"},
         {id: 2, title: "Sci-Fi", img: "./img/scifi_bg.jfif"},
         {id: 3, title: "Fiction", img: "./img/fiction_bg.jfif"},
         {id: 4, title: "Science", img: "./img/science_bg.png"},
-    ];
-    const rooms = [
-        {id: 1, title: "📚 1st Session", book: {id: 1, title: "The Hobbit", author: "JRR. Tolklien", cover: "./img/book_1.jfif"}, attendees: "10"},
-        {id: 2, title: "📖 Follow up", book: {id: 5, title: "Game of Thrones", author: "Author", cover: "./img/got_cover.jfif"}, attendees: "15"},
-        {id: 3, title: "📕 Wrap up", book: {id: 5, title: "From Zero to One", author: "Author", cover: "./img/zero_one_cover.jfif"}, attendees: "7"},
-        {id: 4, title: "📖 Follow up", book: {id: 5, title: "Ce que le jour doit à la nuit", author: "Author", cover: "./img/book_5.jfif"}, attendees: "5"},
     ];
     const books = [
         {id: 1, title: "The Hobbit", author: "JRR. Tolklien", cover: "./img/book_1.jfif"},
@@ -37,7 +40,6 @@ const Home = () => {
         {id: 7, title: "Ce que le jour doit à la nuit", author: "Author", cover: "./img/book_5.jfif"},
         {id: 8, title: "From Zero to One", author: "Author", cover: "./img/zero_one_cover.jfif"}
     ];
-
     const shuffle = (array) =>{
         let curId = array.length;
         while (0 !== curId) {
@@ -55,6 +57,11 @@ const Home = () => {
        
         if(advertisement !== ad)
             setAd(advertisement);
+
+        // Run queries
+        getRooms(roomDispatch);
+        getBooks(bookDispatch); // {}
+
         // eslint-disable-next-line
     }, [ad]);
 
@@ -72,7 +79,7 @@ const Home = () => {
                     spaceBetween={10}
                     slidesPerView={2}
                 >
-                    {shuffle(rooms).map((room) => (
+                    {rooms && shuffle(rooms).map((room) => (
                         <SwiperSlide key={room.id}>
                             <RoomCover 
                                 title={room.title} 
@@ -93,7 +100,7 @@ const Home = () => {
                     spaceBetween={20}
                     slidesPerView={3}
                 >
-                   {shuffle(books).map((book) => (
+                   {books && shuffle(books).map((book) => (
                         <SwiperSlide key={book.id}>
                             <BookCover 
                                 cover={book.cover}  
@@ -114,7 +121,7 @@ const Home = () => {
                     spaceBetween={20}
                     slidesPerView={3}
                 >
-                   {shuffle(books).map((book) => (
+                   {books && shuffle(books).map((book) => (
                         <SwiperSlide key={book.id}>
                             <BookCover 
                                 cover={book.cover}  
