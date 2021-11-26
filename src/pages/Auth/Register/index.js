@@ -21,8 +21,8 @@ const Register = () => {
 
     // Get the dispatch method from the useDispatch custom hook
     const dispatch = useAuthDispatch()
-    // Read the values of loading and errorMessage from context
-    const { loading, errorMessage } = useAuthState() 
+    // Read the values of loading and error from context
+    const { loading, error } = useAuthState() 
 
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
@@ -33,10 +33,9 @@ const Register = () => {
         try { 
             // loginUser action makes the request and handles all the neccessary state changes
             let response = await register(dispatch, values) 
-            if (!response)
-                console.log(errorMessage)
+            if (!response) return;
             // Navigate to login
-            navigate('/login')
+            navigate('/home')
         } catch (error) {
             setAlert({...alert, title: "Something is wrong."})
             console.log(`Register error: ${error}`);
@@ -48,7 +47,6 @@ const Register = () => {
         <Layout alert={alert}>
             <Grid
                 container
-                lg={4} md={4} xs={12}
                 spacing={2} 
                 className={classes.form}
             >

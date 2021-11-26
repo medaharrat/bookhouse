@@ -8,15 +8,14 @@ import Header from "../Navigation/Header";
 import Navbar from "../Navigation/Navbar";
 import Ad from "../Ad";
 import { useStyles } from "./styles";
-import { useAuthState, SocketContext, socket } from "../../context";
+import { useAuthState } from "../../context";
 
 const Layout = ({ title, children, ad, alert }) => {
     const classes = useStyles();
     // Read user details from context
-    const userDetails = useAuthState()
-
+    const auth = useAuthState()
+    console.log(auth)
     return (
-        <SocketContext.Provider value={socket}>
         <div className={classes.layout}>
             {/* Header */}
             <Header fixed/>
@@ -39,7 +38,7 @@ const Layout = ({ title, children, ad, alert }) => {
             </Container>
 
             {/* Navbar */}
-            {userDetails.token && (
+            {auth.token && auth.user && (
                 <Navbar />
             )}
 
@@ -55,7 +54,6 @@ const Layout = ({ title, children, ad, alert }) => {
             </div>          
             )}
         </div>
-        </SocketContext.Provider>
     )
 }
 

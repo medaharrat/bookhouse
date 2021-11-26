@@ -6,7 +6,7 @@ export const initialState = {
     email: "ahr9oi@inf.elte.hu",
     loggedIn: true,
     loading: false,
-    errorMessage: null,
+    error: null,
 };
 
 export const UserReducer = (initialState, action) => {

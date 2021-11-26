@@ -28,7 +28,19 @@ const useStyles = makeStyles({
     color: palette.text.white,
     textTransform: 'none',
     fontSize: 16,
-  }
+    textAlign: 'center'
+  },
+  modal: {
+    position: 'relative',
+    top: '35vh',
+    width: 400,
+    margin: 'auto',
+    backgroundColor: palette.background.grey,
+    borderRadius: 10,
+    boxShadow: palette.background.shadow,
+    padding: 20,
+    textAlign: 'center'
+  },
 })
 
 export { useStyles };

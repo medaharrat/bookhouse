@@ -2,10 +2,15 @@ let user = localStorage.getItem("currentUser")
   ? JSON.parse(localStorage.getItem("currentUser")).user
   : "";
 
+let token = localStorage.getItem("currentUser")
+  ? JSON.parse(localStorage.getItem("currentUser")).token
+  : "";
+
 export const initialState = {
-  userDetails: "" || user,
+  user: "" || user,
+  token: "" || token,
   loading: false,
-  errorMessage: null
+  error: null
 };
 
 export const AuthReducer = (initialState, action) => {
@@ -19,14 +24,15 @@ export const AuthReducer = (initialState, action) => {
     case "LOGIN_SUCCESS":
       return {
         ...initialState,
-        user: action.payload,
+        user: action.payload.user,
+        token: action.payload.token,
         loading: false
       };
     case "LOGIN_ERROR":
       return {
         ...initialState,
         loading: false,
-        errorMessage: action.error
+        error: action.error
       };
 
     // Register
@@ -38,15 +44,15 @@ export const AuthReducer = (initialState, action) => {
     case "REGISTER_SUCCESS":
       return {
         ...initialState,
-        user: action.payload,
-        // add token
+        user: action.payload.user,
+        token: action.payload.token,
         loading: false
       };
     case "REGISTER_ERROR":
       return {
         ...initialState,
         loading: false,
-        errorMessage: action.error
+        error: action.error
       };
 
     // Log out
@@ -54,6 +60,7 @@ export const AuthReducer = (initialState, action) => {
       return {
         ...initialState,
         user: "",
+        token: ""
       };
 
     default:

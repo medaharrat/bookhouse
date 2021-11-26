@@ -11,14 +11,14 @@ export async function login(dispatch, payload) {
   try {
     dispatch({ type: 'REQUEST_LOGIN' });
     let response = await fetch(`${API_URL}/auth/login`, requestOptions);
-    console.log(response)
     let data = await response.json();
- 
-    if (data) {
+    
+    if (data.user) {
       dispatch({ type: 'LOGIN_SUCCESS', payload: data });
       localStorage.setItem('currentUser', JSON.stringify(data));
       return data
     }
+    dispatch({ type: 'LOGIN_ERROR', error: data.error });
     return;
   } catch (error) {
     dispatch({ type: 'LOGIN_ERROR', error: error });
@@ -31,20 +31,24 @@ export async function register(dispatch, payload) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
-  };
+  };  
+  // Begin register
+  dispatch({ type: 'REQUEST_REGISTER' });
+  // Make request
   try {
-    dispatch({ type: 'REQUEST_REGISTER' });
-    let response = await fetch(`${API_URL}/auth/signup`, requestOptions);
-    console.log(`response => ${JSON.stringify(response)}`)
+    let response = await fetch(`${API_URL}/auth/signup`, requestOptions)
     let data = await response.json();
 
-    if (data) {
-      dispatch({ type: 'REGISTER_SUCCESS', payload: data });
+    if(data.user) {
+      dispatch({ type: 'REGISTER_SUCCESS', payload: data});
       localStorage.setItem('currentUser', JSON.stringify(data));
       return data
+    } else {
+      dispatch({ type: 'REGISTER_ERROR', error: data.errors[0]});
+      return;
     }
-    return;
-  } catch (error) {
+  }
+  catch( error ) {
     dispatch({ type: 'REGISTER_ERROR', error: error });
   }
 }
@@ -53,5 +57,4 @@ export async function register(dispatch, payload) {
 export async function logout(dispatch) {
   dispatch({ type: 'LOGOUT' });
   localStorage.removeItem('currentUser');
-  localStorage.removeItem('token');
 }

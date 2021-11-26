@@ -19,8 +19,8 @@ const Login = () => {
 
     // Get the dispatch method from the useDispatch custom hook
     const dispatch = useAuthDispatch()
-    // Read the values of loading and errorMessage from context
-    const { loading, errorMessage } = useAuthState() 
+    // Read the values of loading and error from context
+    const { loading, error } = useAuthState() 
 
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
@@ -31,13 +31,14 @@ const Login = () => {
         try { 
             // login action makes the request and handles all the neccessary state changes
             let response = await login(dispatch, values) 
-            if (!response) return
-            // Navigate to dashboard on success | email: nero@admin.com and password: admin123
-            navigate('/home')
+            if (!response) {
+                setAlert({...alert, title: error})
+            } else {
+                navigate('/home')
+            }
         } catch (error) {
-            setAlert({...alert, title: "Invalid username or password."})
+            setAlert({...alert, title: error})
             console.log(`Login error: ${error}`);
-            console.log(errorMessage)
         }
     };
 
@@ -45,7 +46,6 @@ const Login = () => {
         <Layout alert={alert}>
             <Grid
                 container
-                lg={4} md={4} xs={12}
                 spacing={2} 
                 className={classes.form}
             >

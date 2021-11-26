@@ -2,7 +2,10 @@
 
 // External Modules
 const express = require('express')
-const passport = require('passport')
+const jwt = require('jsonwebtoken')
+const tokenSecret = "my-token-secret"
+const bcrypt = require('bcryptjs');
+// const passport = require('passport')
 
 // Create router
 const router = express.Router()
@@ -11,45 +14,45 @@ const router = express.Router()
 const User = require('../models/user.model')
 
 // Register local
-router.post("/signup" , async (req , res) =>
-{
-    const UserBySchema = new User({
-        username: `${req.body.firstname.substr(1, 3)}-${req.body.lastname.substr(1, 3)}`,
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        email: req.body.email,
-        password: req.body.password,
-        registerDate: Date.now(),
-        lastLoginDate: null,
-        joinedRooms: [],
-        interests: req.body.interests
+router.post("/signup" , async (req , res) => {
+    bcrypt.hash(req.body.password, 10, (error, hash) => {
+        if (error) res.status(500).send({ error: error })
+        else {
+            const UserBySchema = new User({
+                username: `${req.body.firstname.substr(1, 3)}-${req.body.lastname.substr(1, 3)}`,
+                firstname: req.body.firstname,
+                lastname: req.body.lastname,
+                email: req.body.email,
+                password: hash,
+                registerDate: Date.now(),
+                lastLoginDate: null,
+                joinedRooms: [],
+                interests: req.body.interests
+            })
+            // Save the new user
+            UserBySchema.save()
+            .then(user => {
+                res.status(200).send({ user: user, token: generateToken(user) })
+            })
+            .catch(error => {
+                res.status(500).send({error: error})
+            })
+        }
     })
-    try {
-        // Succesfully created object
-        await User.register(UserBySchema, req.body.password, function(err, user) {
-            if (err) {
-                res.send(err)
-            }
-            res.status(200).json(user)
-            passport.authenticate('local')(req, res, function () {
-                res.status(200)
-            });
-        });
-
-    } catch (error) {
-        res.status(400).send({message: error.message})
-    }
 })
 
-router.post("/login", async (req, res) => {
-    try {
-        passport.authenticate('local')(req, res, function () {
-            res.status(200).json(res)
-        });
-        
-    } catch (error) {
-        res.status(500).send({message: error.message})
-    }
+router.post("/login", (req, res) => {
+    User.findOne({email: req.body.email })
+    .then(user => {
+        bcrypt.compare(req.body.password, user.password, (error, match) => {
+            if (error) res.status(500).send(error)
+            else if (match) res.status(200).send({ user: user, token: generateToken(user) })
+            else res.status(403).send({ error: 'Email or password is wrong.'}) 
+        })
+    })
+    .catch(error => {
+        res.status(500).json(error)
+    })
 })
 
 // For tests, get all the users
@@ -108,7 +111,11 @@ async function getUser(req, res, next) {
     res.user = user
     next()
 }
+// Generate a token 
 
+const generateToken = (user) => {
+    return jwt.sign({ data: user }, tokenSecret, {expiresIn: '24h'})
+}
 
 // Export module
 module.exports = router

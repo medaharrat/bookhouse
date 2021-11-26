@@ -22,7 +22,7 @@ const Header = ({ fixed }) => {
     // Read dispatch method from context
     const dispatch = useAuthDispatch() 
     // Read user details from context
-    const userDetails = useAuthState() 
+    const auth = useAuthState() 
 
     // Log out
     const handleLogout = () => {
@@ -39,7 +39,7 @@ const Header = ({ fixed }) => {
         <>
         <AppBar position={fixed ? "fixed" : "static"} className={classes.header}>
             <Toolbar>
-                {userDetails.token ? 
+                {auth.token ? 
                     location.pathname === "/p/2" ? (
                         <>
                             <IconButton

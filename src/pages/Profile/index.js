@@ -7,31 +7,24 @@ import Avatar from "../../components/Avatar";
 import ProfileTabs from "../../components/ProfileTabs";
 import clsx from "clsx";
 import { useStyles } from "./styles";
+import { useAuthState } from "../../context";
 
 const Profile = () => {
     const classes = useStyles();
-    const user = {
-        id: "1",
-        profile_image: "https://v4--material-ui-docs.netlify.app/static/images/avatar/1.jpg",
-        first_name: "Mohamed",
-        last_name: "Aharrat",
-        email: "ahr9oi@inf.elte.hu",
-        loggedIn: true,
-    }
-
+    const { user } = useAuthState()
     const avatarStyle = {  height: 150, width: 150 }
 
     return (
         <Layout>
             <div className={classes.profile}>
-                <Grid container lg={12} direction="column" justifyContent="space-between" alignItems="center">
+                <Grid container direction="column" justifyContent="space-between" alignItems="center">
                     <Grid item lg={9} className={classes.user}>
                         <Avatar style={avatarStyle}/>
                         <Typography variant="h5" className={clsx(classes.padding, classes.name)}>
-                            { `${user.first_name} ${user.last_name}`}
+                            { `${user.firstname} ${user.lastname}`}
                         </Typography>
                         <Typography variant="body2" color="textSecondary">
-                            { `@${user.first_name}`}
+                            { `@${user.username}`}
                         </Typography>
                     </Grid>
                 </Grid>

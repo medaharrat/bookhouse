@@ -22,10 +22,10 @@ const Home = () => {
         {id: 4, title: "Science", img: "./img/science_bg.png"},
     ];
     const rooms = [
-        {id: 1, title: "📚 1st Session", category: "The Hobbit", attendees: "10", cover: "./img/book_1.jfif"},
-        {id: 2, title: "📖 Follow up", category: "Game of Thrones", attendees: "15", cover: "./img/got_cover.jfif"},
-        {id: 3, title: "📕 Wrap up", category: "From Zero to One", attendees: "7", cover: "./img/zero_one_cover.jfif"},
-        {id: 4, title: "📖 Follow up", category: "Ce que le jour doit à la nuit", attendees: "5", cover: "./img/book_5.jfif"},
+        {id: 1, title: "📚 1st Session", book: {id: 1, title: "The Hobbit", author: "JRR. Tolklien", cover: "./img/book_1.jfif"}, attendees: "10"},
+        {id: 2, title: "📖 Follow up", book: {id: 5, title: "Game of Thrones", author: "Author", cover: "./img/got_cover.jfif"}, attendees: "15"},
+        {id: 3, title: "📕 Wrap up", book: {id: 5, title: "From Zero to One", author: "Author", cover: "./img/zero_one_cover.jfif"}, attendees: "7"},
+        {id: 4, title: "📖 Follow up", book: {id: 5, title: "Ce que le jour doit à la nuit", author: "Author", cover: "./img/book_5.jfif"}, attendees: "5"},
     ];
     const books = [
         {id: 1, title: "The Hobbit", author: "JRR. Tolklien", cover: "./img/book_1.jfif"},
@@ -33,6 +33,9 @@ const Home = () => {
         {id: 3, title: "Relatively Famous", author: "Jessica Park", cover: "./img/book_3.jfif"},
         {id: 4, title: "Heal Your Mind Rewire Your Brain", author: "Patt-Lind Kyle", cover: "./img/book_4.jfif"},
         {id: 5, title: "It's about damn time", author: "Arlan Hamilton", cover: "https://assets-global.website-files.com/5f568f3b0b09b038fab5f5e2/616e3780a9f5ae3126ec6049_original.jpg"},
+        {id: 6, title: "Game of Thrones", author: "Author", cover: "./img/got_cover.jfif"},
+        {id: 7, title: "Ce que le jour doit à la nuit", author: "Author", cover: "./img/book_5.jfif"},
+        {id: 8, title: "From Zero to One", author: "Author", cover: "./img/zero_one_cover.jfif"}
     ];
 
     const shuffle = (array) =>{
@@ -73,9 +76,8 @@ const Home = () => {
                         <SwiperSlide key={room.id}>
                             <RoomCover 
                                 title={room.title} 
-                                category={room.category} 
+                                category={room.book.title} 
                                 numPeople={+room.attendees}
-                                cover={room.cover}
                             />
                         </SwiperSlide>
                     ))}

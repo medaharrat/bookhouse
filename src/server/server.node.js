@@ -8,8 +8,8 @@ const SocketIO = require("socket.io")
 const InstallController = require("./socket.node")
 const Mongoose = require('mongoose')
 const cors = require('cors');
-const Passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
+//const Passport = require('passport');
+//const LocalStrategy = require('passport-local').Strategy;
 
 // Mongoose settings
 Mongoose.Promise = global.Promise;
@@ -27,7 +27,7 @@ Mongoose.connect(connectionString, {
 });
 
 Mongoose.connection.on('error', err => {
-    logError(err);
+    console.log(`MongoDB Connection Error: ${err}`);
 });
 
 // Load config
@@ -49,7 +49,8 @@ server.use((req, res, next) => //Custom injection middleware
 })
 console.log('Express server initialized.')
 
-// Configure Passport
+/* Configure Passport
+*
 const User = require('./models/user.model');
 server.use(require('express-session')({
     secret: 'keyboard cat',
@@ -61,7 +62,8 @@ server.use(Passport.session());
 Passport.use(new LocalStrategy(User.authenticate()));
 Passport.serializeUser(User.serializeUser());
 Passport.deserializeUser(User.deserializeUser());
-
+*
+*/
 // Install Express routers
 console.log('Installing express routers...')
 for (const router of config.server.routers)

@@ -18,7 +18,7 @@ const UserSchema = new Mongoose.Schema({
         type: String,
         required: [true, 'Email is required']
     },
-    password: {
+    password: { // Delete this field later, only for testing
         type: String,
         required: [true, 'Password is required']
     },

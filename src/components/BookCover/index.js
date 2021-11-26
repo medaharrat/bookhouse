@@ -1,19 +1,21 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import {
-    Typography
+    Grid, Typography
 } from '@material-ui/core';
 import { useStyles } from "./styles";
 
 const BookCover = ({title, subtitle, cover}) => {
     const classes = useStyles();
     return (
-        <div>
-            <img 
-                className={classes.cover} 
-                alt={title ? title : ''}
-                src={cover} 
-            />
+        <Grid container>
+            <Grid item>
+                <img 
+                    className={classes.cover} 
+                    alt={title ? title : ''}
+                    src={cover} 
+                />
+            </Grid>
             {
                 (title.length > 0) && (
                     <>
@@ -27,7 +29,7 @@ const BookCover = ({title, subtitle, cover}) => {
                 )
             }
 
-        </div>
+        </Grid>
     );
 }
 

@@ -7,11 +7,11 @@ import PersonIcon from '@material-ui/icons/Person';
 import { Link } from "react-router-dom";
 import { useStyles } from "./styles";
 
-const RoomCover = ({ title, category, numPeople, cover }) => {
+const RoomCover = ({ title, category, numPeople }) => {
     const classes = useStyles();
 
     return (
-        <div>
+        <Grid container>
             <Card className={classes.cover} variant="outlined">
                 <div className={classes.colorTag} />
                 <CardContent className={classes.content}>
@@ -26,7 +26,7 @@ const RoomCover = ({ title, category, numPeople, cover }) => {
                                 { title && title.length <= 14 ? title : `${title.substr(0, 13)} ...` }
                             </Typography>
                         </Grid>
-                        <Grid container xs={12} alignItems="center">
+                        <Grid container alignItems="center">
                             <PersonIcon color="disabled" fontSize="small"/>
                             <Typography variant="body2" color="textSecondary"> 
                                 { numPeople && +numPeople <= 10 ? numPeople : `10+` }
@@ -47,7 +47,7 @@ const RoomCover = ({ title, category, numPeople, cover }) => {
                 </CardActions>
             </Card>
             <div className={classes.divider} />
-        </div>
+        </Grid>
     )
 }
 
