@@ -21,14 +21,20 @@ const useStyles = makeStyles({
     fontSize: 18,
     marginRight: 10
   },
-  start: {
-    borderRadius: 10,
+  startWrapper: {
     width: '40%',
+
+  },
+  start: {
     backgroundImage: palette.background.gradient,
-    color: palette.text.white,
+    borderRadius: 10,
     textTransform: 'none',
     fontSize: 16,
     textAlign: 'center'
+  },
+  startBtn: {
+    width: '100%',
+    color: `${palette.text.white} !important`
   },
   modal: {
     position: 'relative',

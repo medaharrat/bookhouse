@@ -8,8 +8,6 @@ const SocketIO = require("socket.io")
 const InstallController = require("./socket.node")
 const Mongoose = require('mongoose')
 const cors = require('cors');
-//const Passport = require('passport');
-//const LocalStrategy = require('passport-local').Strategy;
 
 // Mongoose settings
 Mongoose.Promise = global.Promise;
@@ -21,13 +19,13 @@ Mongoose.connect(connectionString, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
-    console.log('MongoDB connected!!');
+    console.log('> MongoDB connected.');
 }).catch(err => {
-    console.log('Failed to connect to MongoDB', err);
+    console.log('[X] - Failed to connect to MongoDB', err);
 });
 
 Mongoose.connection.on('error', err => {
-    console.log(`MongoDB Connection Error: ${err}`);
+    console.log(`[X] - MongoDB Connection Error: ${err}`);
 });
 
 // Load config
@@ -49,21 +47,6 @@ server.use((req, res, next) => //Custom injection middleware
 })
 console.log('Express server initialized.')
 
-/* Configure Passport
-*
-const User = require('./models/user.model');
-server.use(require('express-session')({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false
-}));
-server.use(Passport.initialize());
-server.use(Passport.session());
-Passport.use(new LocalStrategy(User.authenticate()));
-Passport.serializeUser(User.serializeUser());
-Passport.deserializeUser(User.deserializeUser());
-*
-*/
 // Install Express routers
 console.log('Installing express routers...')
 for (const router of config.server.routers)

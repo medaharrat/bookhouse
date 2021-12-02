@@ -13,7 +13,7 @@ const BookSchema = new Mongoose.Schema({
     cover: {
         type: String,
         required: true,
-        default: "./img/book_1.jfif"
+        default: "./img/bookdefault.jpg"
     }
 }, {collection: 'books'})
 

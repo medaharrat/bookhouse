@@ -19,7 +19,7 @@ const Home = () => {
     const classes = useStyles();
     const [ad, setAd] = useState('');
     const { rooms } = useRoomState();
-    // const { books } = useBookState();
+    const { books } = useBookState();
     
     const roomDispatch = useRoomDispatch();
     const bookDispatch = useBookDispatch();
@@ -30,16 +30,7 @@ const Home = () => {
         {id: 3, title: "Fiction", img: "./img/fiction_bg.jfif"},
         {id: 4, title: "Science", img: "./img/science_bg.png"},
     ];
-    const books = [
-        {id: 1, title: "The Hobbit", author: "JRR. Tolklien", cover: "./img/book_1.jfif"},
-        {id: 2, title: "Futurama", author: "Michael Douglas JR.", cover: "./img/book_2.jfif"},
-        {id: 3, title: "Relatively Famous", author: "Jessica Park", cover: "./img/book_3.jfif"},
-        {id: 4, title: "Heal Your Mind Rewire Your Brain", author: "Patt-Lind Kyle", cover: "./img/book_4.jfif"},
-        {id: 5, title: "It's about damn time", author: "Arlan Hamilton", cover: "https://assets-global.website-files.com/5f568f3b0b09b038fab5f5e2/616e3780a9f5ae3126ec6049_original.jpg"},
-        {id: 6, title: "Game of Thrones", author: "Author", cover: "./img/got_cover.jfif"},
-        {id: 7, title: "Ce que le jour doit à la nuit", author: "Author", cover: "./img/book_5.jfif"},
-        {id: 8, title: "From Zero to One", author: "Author", cover: "./img/zero_one_cover.jfif"}
-    ];
+
     const shuffle = (array) =>{
         let curId = array.length;
         while (0 !== curId) {
@@ -60,7 +51,7 @@ const Home = () => {
 
         // Run queries
         getRooms(roomDispatch);
-        getBooks(bookDispatch); // {}
+        getBooks(bookDispatch);
 
         // eslint-disable-next-line
     }, [ad]);
@@ -80,7 +71,7 @@ const Home = () => {
                     slidesPerView={2}
                 >
                     {rooms && shuffle(rooms).map((room) => (
-                        <SwiperSlide key={room.id}>
+                        <SwiperSlide key={room._id}>
                             <RoomCover 
                                 title={room.title} 
                                 category={room.book.title} 
@@ -101,7 +92,7 @@ const Home = () => {
                     slidesPerView={3}
                 >
                    {books && shuffle(books).map((book) => (
-                        <SwiperSlide key={book.id}>
+                        <SwiperSlide key={book._id}>
                             <BookCover 
                                 cover={book.cover}  
                                 title={book.title} 
@@ -122,7 +113,7 @@ const Home = () => {
                     slidesPerView={3}
                 >
                    {books && shuffle(books).map((book) => (
-                        <SwiperSlide key={book.id}>
+                        <SwiperSlide key={book._id}>
                             <BookCover 
                                 cover={book.cover}  
                                 title={book.title} 

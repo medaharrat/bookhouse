@@ -16,7 +16,7 @@ export const BookReducer = (initialState, action) => {
     case "GET_ALLBOOKS_SUCCESS":
         return {
           ...initialState,
-        rooms: action.payload.books,
+        books: action.payload.books,
         loading: false
     };
     case "ERROR":

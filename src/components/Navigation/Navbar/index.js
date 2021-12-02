@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   AppBar, Toolbar, IconButton, Button, Modal, 
   Card, CardActions, CardContent, Typography,
@@ -8,29 +8,21 @@ import {
   Search, Apps
 } from '@material-ui/icons';
 import { useStyles } from './styles';
-import { createRoom, useRoomDispatch } from "../../../context";
+import { createRoom, useRoomDispatch, getBooks, useBookDispatch, useBookState } from "../../../context";
 
 const NavigationBar = () => { 
   const classes = useStyles();
+  const [empty, setEmpty] = useState(false);
   const [open, setOpen] = useState(false);
+  const { books, loading } = useBookState();
   const [values, setValues] = useState({
     title: '',
-    book: {},
+    book: '',
     attendees: []
   });
 
-  const books = [
-    {id: 1, title: "The Hobbit", author: "JRR. Tolklien", cover: "./img/book_1.jfif"},
-    {id: 2, title: "Futurama", author: "Michael Douglas JR.", cover: "./img/book_2.jfif"},
-    {id: 3, title: "Relatively Famous", author: "Jessica Park", cover: "./img/book_3.jfif"},
-    {id: 4, title: "Heal Your Mind Rewire Your Brain", author: "Patt-Lind Kyle", cover: "./img/book_4.jfif"},
-    {id: 5, title: "It's about damn time", author: "Arlan Hamilton", cover: "https://assets-global.website-files.com/5f568f3b0b09b038fab5f5e2/616e3780a9f5ae3126ec6049_original.jpg"},
-    {id: 6, title: "Game of Thrones", author: "Author", cover: "./img/got_cover.jfif"},
-    {id: 7, title: "Ce que le jour doit à la nuit", author: "Author", cover: "./img/book_5.jfif"},
-    {id: 8, title: "From Zero to One", author: "Author", cover: "./img/zero_one_cover.jfif"}
-  ];
-
   const dispatch = useRoomDispatch();
+  const bookDispatch = useBookDispatch();
 
   const toggleModal = () => {
     setOpen(!open);
@@ -40,10 +32,30 @@ const NavigationBar = () => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
-  const handleCreate = (e) => {
+  const handleCreate = async (e) => {
     e.preventDefault();
-    createRoom(dispatch, values);
+    try {
+      // Data validation
+      if (values.title.length == 0 || values.book.length == 0) {
+        setEmpty(true);
+        return;
+      }
+      // Add new element
+      let _id = values.book;
+      values.book = books.filter((book) => book._id == _id)[0]
+      await createRoom(dispatch, values);
+      setOpen(false);
+    } catch( error ) {
+      console.log(`Insertion Error: ${error}`);
+    }
   }
+
+  useEffect(() => {
+    // Run queries
+    getBooks(bookDispatch);
+
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <AppBar className={classes.navBar}>
@@ -55,12 +67,13 @@ const NavigationBar = () => {
           </IconButton>
         </div>
         {/* Start a room */}
-        <div className={classes.start}>
-          <Button disableElevation onClick={toggleModal}>
-            <span className={classes.plus}>+</span>
-            Start a room
-          </Button>
-
+        <div className={classes.startWrapper}>
+          <div className={classes.start}>
+            <Button disableElevation onClick={toggleModal} className={classes.startBtn}>
+              <span className={classes.plus}>+</span>
+              Start a room
+            </Button>
+          </div>
           <Modal
             open={open}
             onClose={toggleModal}
@@ -74,7 +87,7 @@ const NavigationBar = () => {
                   className={classes.form}
                 >
                   <Grid item lg={12}>
-                    <Typography variant="h5" className={classes.title}>
+                    <Typography variant="h5">
                         Create a room
                     </Typography>
                   </Grid>
@@ -83,6 +96,7 @@ const NavigationBar = () => {
                       <TextField 
                         id="title" label="Title" 
                         variant="outlined" onChange={handleChange('title')}
+                        required error={empty}
                       />
                     </FormControl>
                   </Grid>
@@ -96,8 +110,8 @@ const NavigationBar = () => {
                         onChange={handleChange('book')} 
                       >
                         {/* Fix this later */}
-                        {books.map((book) => (
-                          <MenuItem value={values.book}>{ book.title }</MenuItem>
+                        {books && books.map((book) => (
+                          <MenuItem key={book._id} value={book._id}>{ book.title }</MenuItem>
                         ))}
                       </Select>
                     </FormControl>
@@ -105,7 +119,13 @@ const NavigationBar = () => {
                  </Grid>
               </CardContent>
               <CardActions className={classes.modalActions}>
-                <Button variant="outlined" disableElevation disableRipple onClick={handleCreate}>
+                <Button 
+                  variant="outlined" 
+                  disableElevation 
+                  disableRipple 
+                  onClick={handleCreate}
+                  disabled={loading}
+                >
                   Create
                 </Button>
               </CardActions>

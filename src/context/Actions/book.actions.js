@@ -11,7 +11,7 @@ export async function getBooks(dispatch) {
     dispatch({ type: 'REQUEST' });
     let response = await fetch(`${API_URL}`, requestOptions);
     let data = await response.json();
-
+    
     if (data.books) {
       dispatch({ type: 'GET_ALLBOOKS_SUCCESS', payload: data });
       return data.books

@@ -38,7 +38,7 @@ export async function createRoom(dispatch, payload) {
     
     if (data.user) {
       dispatch({ type: 'CREATE_SUCCESS', payload: data });
-      return data
+      return data;
     }
     dispatch({ type: 'ERROR', error: data.error });
     return;
