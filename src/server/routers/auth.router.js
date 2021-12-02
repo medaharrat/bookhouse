@@ -19,6 +19,7 @@ router.post("/signup" , async (req , res) => {
         if (error) res.status(500).send({ error: error })
         else {
             const UserBySchema = new User({
+                avatar: "https://v4--material-ui-docs.netlify.app/static/images/avatar/1.jpg",
                 username: `${req.body.firstname.substr(1, 3)}-${req.body.lastname.substr(1, 3)}`,
                 firstname: req.body.firstname,
                 lastname: req.body.lastname,

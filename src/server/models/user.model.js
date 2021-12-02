@@ -2,6 +2,10 @@ const Mongoose = require('mongoose')
 const passportLocalMongoose = require('passport-local-mongoose');
 
 const UserSchema = new Mongoose.Schema({
+    avatar: {
+        type: String,
+        required: [true, 'Avatar is required']
+    },
     username: {
         type: String,
         required: [true, 'Username is required'] 

@@ -36,13 +36,13 @@ const NavigationBar = () => {
     e.preventDefault();
     try {
       // Data validation
-      if (values.title.length == 0 || values.book.length == 0) {
+      if (values.title.length === 0 || values.book.length === 0) {
         setEmpty(true);
         return;
       }
       // Add new element
       let _id = values.book;
-      values.book = books.filter((book) => book._id == _id)[0]
+      values.book = books.filter((book) => book._id === _id)[0]
       await createRoom(dispatch, values);
       setOpen(false);
     } catch( error ) {

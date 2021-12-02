@@ -70,9 +70,10 @@ const Header = ({ fixed }) => {
                                 component={Link}
                                 to="/p/2"
                             >
-                                <Avatar nav image="https://v4--material-ui-docs.netlify.app/static/images/avatar/1.jpg"/>
+                                <Avatar nav image={auth.user.avatar}/>
                             </IconButton>
                             <div className={classes.grow} />
+                            { /*
                             <IconButton
                                 aria-label="inbox"
                                 color="inherit"
@@ -114,6 +115,7 @@ const Header = ({ fixed }) => {
                             >
                                 <DateRangeOutlined/>
                             </IconButton>
+                            */ }
                         </>
                     ):(
                     <>

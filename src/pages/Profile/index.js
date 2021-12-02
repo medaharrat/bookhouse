@@ -19,7 +19,7 @@ const Profile = () => {
             <div className={classes.profile}>
                 <Grid container direction="column" justifyContent="space-between" alignItems="center">
                     <Grid item lg={9} className={classes.user}>
-                        <Avatar style={avatarStyle}/>
+                        <Avatar image={user.avatar} style={avatarStyle}/>
                         <Typography variant="h5" className={clsx(classes.padding, classes.name)}>
                             { `${user.firstname} ${user.lastname}`}
                         </Typography>
