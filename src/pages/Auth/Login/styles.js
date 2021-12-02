@@ -28,6 +28,12 @@ const useStyles = makeStyles({
         boxShadow: 'none',
         fontFamily: 'Poppins Regular'
     },
+    loading: {
+        color: 'blue',
+        position: 'absolute',
+        marginTop: 10,
+        marginLeft: '48%'
+    }
 })
 
 export { useStyles };

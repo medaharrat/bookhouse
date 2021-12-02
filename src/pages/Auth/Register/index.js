@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { register, useAuthState, useAuthDispatch } from '../../../context';
 import Layout from "../../../components/Layout";
 import {
-    Typography, TextField, Button, Grid, FormControl, Link
+    Typography, TextField, Button, Grid, FormControl, Link,
+    CircularProgress
 } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
@@ -104,6 +105,7 @@ const Register = () => {
                         >
                             Create account
                         </Button>
+                        { loading &&  (<CircularProgress size={24} className={classes.loading} />) }
                     </FormControl>     
                 </Grid>
                 <Grid item sm={12}>
