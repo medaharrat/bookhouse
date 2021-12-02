@@ -50,7 +50,7 @@ POST https://localhost:8000/create
 Content-Type: application/json
 
 {
-    "title": "Test"
+    "title": "Majonéz"
 }
 
 
@@ -59,4 +59,18 @@ Content-Type: application/json
 DELETE https://localhost:8000/delete/5
 
 
-#Get user
+#Return all books, that have rooms
+###
+GET https://localhost:8000/book/
+
+
+###
+#Create a book
+POST https://localhost:8000/book/create
+Content-Type: application/json
+
+{
+    "title": "CFrom Zero to One",
+    "author": "Author",
+    "cover": "./img/zero_one_cover.jfif"
+}
