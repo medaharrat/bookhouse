@@ -4,10 +4,6 @@ const Mongoose = require('mongoose')
 // Should we create an ID? (Mongoose creates a unique ID)
 
 const bookSchema = new Mongoose.Schema({
-    id: {
-        type: Number,
-        required: true
-    },
     title: {
         type: String,
         required: true

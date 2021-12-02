@@ -44,10 +44,13 @@ const userSchema = new Mongoose.Schema({
 })
 
 const model = Mongoose.model('User', userSchema)
+
+// TODO Not working for some reason
 model.expose = function(user) {
     return {
-        name: user.name,
-        username: user.username
+        "firstname": user.firstname,
+        "lastname": user.lastname,
+        "username": user.username
     }
 }
 

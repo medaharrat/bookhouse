@@ -2,45 +2,60 @@
 
 // External Modules
 const Express = require('express')
+const Mongoose = require('mongoose')
 
 
 // Create router
 const router = Express.Router()
 
 const Room = require("../models/room.model")
+const Book = require("../models/book.model")
 
 // New Room
 // TODO Create a BOOK object or reference after the room has been created!
 router.post("/create" , async (req , res) =>
 {
-    const { id, title, category, attendees, cover } = req.body
+    const { title, attendees } = req.body
 
     // TODO not just filter by id
-    let room = await Room.findOne({id})
-
-    if (room) {
-        return res.status(400).json({ok: 0, message: "Room already existing"})
-    }
-
-    if (!(title && category && attendees)) {
+    if (!(title)) {
         return res.status(400).json({ok: 0, message: "Empty inputs!"})
     }
-    let count = await Room.count({})
     // return res.send({message: count})
-    room = new Room({
-        id: id,
-        title: title,
-        category: category,
-        attendees: attendees,
+    const book = new Book({
+        title: 'Default title',
+        author: 'Default author'
     })
+    await book.save()
 
+    const room = new Room({
+        book: book._id,
+        title: title,
+        attendees: attendees || []
+    })
     try {
-        const newRook = await room.save()
+        await room.save()
+
+        room.save(function(err) {
+            if (err){
+                return res.status(400).send({message: error.message})
+            }
+            else {
+                Room.find({}).populate('book').exec(function(error, posts) {
+                    if (error) {
+                        return res.status(400).send({message: error.message})
+                    }
+                })
+            }
+        })
         // Succesfully created object
-        res.status(201).send({ok: 1, message: "Room created"})
+        return res.status(201).send({ok: 1, message: "Room created with book reference"})
     } catch (error) {
-        res.status(400).send({ok: 0, message: error.message})
+        return res.status(400).send({ok: 0, message: error.message})
     }
+
+    
+
 })
 
 router.delete("/delete/:id" , getRoom, async (req , res) =>

@@ -4,26 +4,16 @@ const Mongoose = require('mongoose')
 // Should we create an ID? (Mongoose creates a unique ID)
 
 const roomSchema = new Mongoose.Schema({
-    id: {
-        type: Number,
-        required: true
-    },
     title: {
         type: String,
         required: true
     },
-    category: {
-        type: String,
-        required: true
+    book: {
+        type: Mongoose.Schema.Types.ObjectId,
+        ref: 'Book'
     },
     attendees: {
-        type: Number,
-        required: true
-    },
-    cover: {
-        type: String,
-        required: true,
-        default: "./images/bookdefault.jfif"
+        type: []
     }
 })
 
