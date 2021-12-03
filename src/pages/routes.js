@@ -23,10 +23,10 @@ const routes = [
     },
     {
         name: "room",
-        path: "/r",
+        path: "/r/:id",
         element: (
             <RequireAuth>
-                <Room title="De la haine à Hollywood by Said Taghmaoui"/>
+                <Room />
             </RequireAuth>
         ),
     },

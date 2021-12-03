@@ -14,7 +14,7 @@ const Layout = ({ title, children, ad, alert }) => {
     const classes = useStyles();
     // Read user details from context
     const auth = useAuthState()
-    // console.log(JSON.stringify(auth))
+
     return (
 
         <div className={classes.layout}>

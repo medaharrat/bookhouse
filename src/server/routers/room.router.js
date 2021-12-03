@@ -24,6 +24,22 @@ router.get("/" , async (req , res) => {
     }
 })
 
+// Get one room
+router.get("/:id" , async (req , res) => {
+    let room = []
+    try {
+        // Find room
+        room = await Room.findOne({ _id: req.params.id }) 
+
+        if (room == null) {
+            return res.status(404).send({ error: 'Room not found' })
+        }
+        res.status(201).send({ id: req.params.id, room: room })
+    } catch (error) {
+        return res.status(500).send({ error: 'Room not found', details: error })
+    }
+})
+
 // New Room
 router.post("/create" , async (req , res) =>
 {
@@ -70,7 +86,7 @@ async function getRoom(req, res, next) {
     let room
     try {
         // Find the user that passed in the URL
-        room = await Room.find({id: req.params.id}) 
+        room = await Room.find({_id: req.params.id}) 
 
         // Cannot find user
         if (room == null) {

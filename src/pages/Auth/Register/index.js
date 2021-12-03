@@ -41,7 +41,6 @@ const Register = () => {
             setAlert({...alert, title: "Something is wrong."})
             console.log(`Register error: ${error}`);
         }
-        console.log(`> Register ${JSON.stringify(values)}`)
     };
 
     return (

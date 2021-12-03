@@ -73,8 +73,9 @@ const Home = () => {
                     {rooms && shuffle(rooms).map((room) => (
                         <SwiperSlide key={room._id}>
                             <RoomCover 
+                                id={room._id}
                                 title={room.title} 
-                                category={room.book.title} 
+                                book={room.book.title} 
                                 numPeople={+room.attendees}
                             />
                         </SwiperSlide>

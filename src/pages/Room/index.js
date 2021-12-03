@@ -4,27 +4,41 @@ import {
     IconButton, Typography, Box, Grid, Button, Modal, Card, CardActions, CardContent
 } from "@material-ui/core";
 import {
-    PanTool, MicOff, VolumeOff, Mic, VolumeUp
+    MicOff, VolumeOff, Mic, VolumeUp
 } from "@material-ui/icons";
 import Avatar from "../../components/Avatar";
 import Layout from "../../components/Layout";
-import { useAuthState, SocketContext, socket } from "../../context";
-import { useNavigate } from "react-router-dom";
+import { 
+    getRoom, useRoomDispatch, useRoomState, 
+    useAuthState, SocketContext, socket 
+} from "../../context";
+import { useNavigate, useParams } from "react-router-dom";
 import { useStyles } from "./styles.js";
 import _ from "../../server/config.json";
 
-const Room = ({ title }) => {
+const Room = () => {
     const classes = useStyles();
     const navigate = useNavigate();
+    const { id } = useParams();
+    
+    // Get current user
+    const { user } = useAuthState();
 
-    //Read config
+    // Get current room
+    const { room, error } = useRoomState();
+    const roomDispatch = useRoomDispatch();
+    
+    const TITLE = room && room.book.title;
+    const AUTHOR = room && room.book.author;
+    const SEP = room ? 'by' : '';
+
+    // Read config and prepare states
     const config = _.socket
-
     const [modal, openModal] = useState(false);
     const [users, setUsers] = useState([]);
     const [userStatus, setUserStatus] = useState({
-        name: config.stateDefault.name,
-        avatar: config.stateDefault.avatar,            
+        name: user.firstname,
+        avatar: user.avatar,            
         muted: config.stateDefault.muted,
         deafened: config.stateDefault.deafened,
         connected: config.stateDefault.connected,            
@@ -83,7 +97,7 @@ const Room = ({ title }) => {
                 mediaRecorder.stop()
             }, config.chunkTime)
         })
-    
+
         //On voice transmission received
         socket.on(config.messages.transmit, (data) => {
             let audio = new Audio(data)
@@ -93,7 +107,6 @@ const Room = ({ title }) => {
         //On user sync received
         socket.on(config.messages.sync, (data) => {
             console.log('> Syncing ...')
-            userStatus.name = data.name
         })
     
         //On user status change
@@ -104,7 +117,7 @@ const Room = ({ title }) => {
                 const info = data[id]
                 list.push(info)
             }
-            console.log(list)
+
             setUsers(list)
         })
     
@@ -143,10 +156,6 @@ const Room = ({ title }) => {
         openModal(false)
     }
 
-    const onToggleRaiseHand = (e) => {
-        //setHandRaised(!handRaised);
-    }
-    
     const onToggleMuted = (e) => {
         userStatus.muted = !userStatus.muted
         emitUserChange()
@@ -162,12 +171,14 @@ const Room = ({ title }) => {
     }
     
     useEffect(() => {
-        initializeMedia()
+        initializeMedia();
+        getRoom(id, roomDispatch);
         // eslint-disable-next-line
     }, []);
 
     return (
-        <Layout title="Bookhouse.">
+        <Layout title={error ? '404 Not found': 'Bookhouse'}>
+        {error ? <center><b>The room which you are trying to access does not exist anymore!</b></center>: (
         <SocketContext.Provider value={socket}>
             <Box className={classes.room}>
                 <Grid
@@ -178,25 +189,28 @@ const Room = ({ title }) => {
                 >
                     <Grid item>
                     <Typography className={classes.title} variant="h6" noWrap>
-                        { title }
+                        { `${TITLE} ${SEP} ${AUTHOR}` }
                         </Typography>
                     </Grid>
-                    <Grid item>
                         {/* Attendees */}
-                        <Grid container spacing={1} className={classes.attendees}>
-                            {
-                                users.map((user) => (
+                        { // Only show attendees if the user is connected
+                            userStatus.connected && (
+                            <Grid item>
+                                <Grid container spacing={1} className={classes.attendees}>
+                                {users.map((user) => (
                                     <Grid item xs={3} key={users.indexOf(user)}>
                                         <Avatar 
-                                            title={user.name ? user.name.substr(0, 4) : 'Guest'} 
+                                            image={user.avatar}
+                                            title={user.name ? user.name : 'Guest'} 
                                             muted={user.muted} style={avatarStyle}
                                             speaking={user.connected && !user.muted}
                                         />
                                     </Grid>
-                                ))
-                            }
-                        </Grid>
-                    </Grid>
+                                ))}
+                                </Grid>
+                            </Grid>
+                            )
+                        }
                     {/* Controls */}
                     <Grid
                         item
@@ -217,10 +231,6 @@ const Room = ({ title }) => {
                         {/* Deafen */}
                         <IconButton id="control-deafen" disableRipple className={classes.controlBtn} onClick={onToggleDeafened}>
                             { userStatus.deafened ? (<VolumeOff className={classes.controllOff}/>) : (<VolumeUp/>) }
-                        </IconButton >
-                        {/* Raise Hand */}
-                        <IconButton id="control-deafen" disableRipple className={classes.controlBtn} onClick={onToggleRaiseHand}>
-                            <PanTool className={(false) ? classes.raised : '✋'}/>
                         </IconButton >
                     </Grid>
                 </Grid>
@@ -269,6 +279,7 @@ const Room = ({ title }) => {
                 </Card>
             </Modal>
         </SocketContext.Provider>
+        )}
         </Layout>
     );
 }

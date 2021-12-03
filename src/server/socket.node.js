@@ -14,7 +14,7 @@ function initialize(io, config) {
         //Setup connection
         const id = socket.id
         users[id] = {
-            name: socket.id,
+            name: config.stateDefault.name,
             avatar: config.stateDefault.avatar,            
             muted: config.stateDefault.muted,
             deafened: config.stateDefault.deafened,
@@ -54,7 +54,7 @@ function initialize(io, config) {
     
         //Event for state change
         socket.on(event.update, (data) => {
-            //Update user            
+            //Update user         
             users[id] = data //TODO Securiy: escape incoming data!
     
             //Log update

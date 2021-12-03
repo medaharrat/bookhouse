@@ -23,6 +23,29 @@ export async function getRooms(dispatch) {
   }
 }
 
+// Get one room
+export async function getRoom(id, dispatch) {
+  const requestOptions = {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  };
+
+  try {
+    dispatch({ type: 'REQUEST' });
+    let response = await fetch(`${API_URL}/${id}`, requestOptions);
+    let data = await response.json();
+
+    if (data.room) {
+      dispatch({ type: 'GET_ROOM_SUCCESS', payload: data });
+      return data.room
+    }
+    dispatch({ type: 'ERROR', error: data.error });
+    return;
+  } catch (error) {
+    dispatch({ type: 'ERROR', error: error });
+  }
+}
+
 // Create a room
 export async function createRoom(dispatch, payload) {
   const requestOptions = {

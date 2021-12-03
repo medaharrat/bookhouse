@@ -7,7 +7,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import { Link } from "react-router-dom";
 import { useStyles } from "./styles";
 
-const RoomCover = ({ title, category, numPeople }) => {
+const RoomCover = ({ id, title, book, numPeople }) => {
     const classes = useStyles();
 
     return (
@@ -18,7 +18,7 @@ const RoomCover = ({ title, category, numPeople }) => {
                     <Grid container>
                         <Grid item xs={12}>
                             <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                { category && category.length <= 25 ? category : `${category.substr(0, 24)} ...` }
+                                { book && book.length <= 25 ? book : `${book.substr(0, 24)} ...` }
                             </Typography>
                         </Grid>
                         <Grid item xs={12}>
@@ -40,7 +40,7 @@ const RoomCover = ({ title, category, numPeople }) => {
                         disableRipple
                         disableElevation
                         className={classes.jumpInBtn}
-                        component={Link} to="/r"
+                        component={Link} to={`/r/${id}`}
                     >
                         Jump in
                     </Button>
