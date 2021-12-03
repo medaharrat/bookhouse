@@ -33,7 +33,7 @@ const Login = () => {
             // login action makes the request and handles all the neccessary state changes
             let response = await login(dispatch, values) 
             if (!response) {
-                setAlert({...alert, title: error})
+                setAlert({...alert, title: error ? error : 'Email or password is wrong'})
             } else {
                 navigate('/home')
             }
