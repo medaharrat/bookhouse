@@ -54,12 +54,11 @@ function initialize(io, config) {
     
         //Event for state change
         socket.on(event.update, (data) => {
-            //Update user         
+            //Update user 
             users[id] = data //TODO Securiy: escape incoming data!
     
             //Log update
             Log.info("User state update:", id)
-            console.log(data)
 
             //Send data to everyone
             io.sockets.emit(event.update, users)

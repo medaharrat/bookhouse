@@ -115,7 +115,9 @@ const Room = () => {
             const list = []
             for (let id in data) {
                 const info = data[id]
-                list.push(info)
+                if (info.connected == true){
+                    list.push(info)
+                }
             }
 
             setUsers(list)
@@ -144,8 +146,6 @@ const Room = () => {
         // Disconnect user
         userStatus.connected = false
         emitUserChange()
-        // Inform the user of disconnection
-        alert("You're disconnected!")
         // Redirect to home
         navigate('/home');
     }
