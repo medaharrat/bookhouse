@@ -8,7 +8,7 @@ const Categories = ({ categories }) => {
     return (
         <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center">
             {categories.map((category) => (
-                <Grid item key={category.title}>
+                <Grid item key={category.title} lg={6}>
                     <Category category={category} />
                 </Grid>
             ))}

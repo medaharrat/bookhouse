@@ -1,30 +1,51 @@
 'use strict'
 
-
 // Modules
 const Fs = require('fs')
 const Https = require("https")
 const Express = require("express")
 const SocketIO = require("socket.io")
 const InstallController = require("./socket.node")
+const Mongoose = require('mongoose')
 const cors = require('cors');
+
+// Mongoose settings
+Mongoose.Promise = global.Promise;
+
+// Connect to MongoDB Atlas
+const connectionString = "mongodb+srv://root:admin123@bookhousecluster.tejiq.mongodb.net/bookhouse?retryWrites=true&w=majority"
+
+Mongoose.connect(connectionString, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => {
+    console.log('> MongoDB connected.');
+}).catch(err => {
+    console.log('[X] - Failed to connect to MongoDB', err);
+});
+
+Mongoose.connection.on('error', err => {
+    console.log(`[X] - MongoDB Connection Error: ${err}`);
+});
 
 // Load config
 const config = require('./config.json')
-
 
 // Create express server
 const server = Express()
 server.set('views', config.server.views)
 server.set("view engine", "ejs")
 server.use(config.server.publicUrl, Express.static(config.server.public))
+server.use(cors());
+server.use(Express.json())
 server.use((req, res, next) => //Custom injection middleware
 {
     req.config = config
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");  
     next()
 })
 console.log('Express server initialized.')
-
 
 // Install Express routers
 console.log('Installing express routers...')
@@ -34,7 +55,6 @@ for (const router of config.server.routers)
     server.use(router.url, require(router.module))
 }
 console.log('Done.')
-
 
 // Load certificates
 const certificate =
@@ -46,7 +66,6 @@ const certificate =
 }
 console.log('Certificate loaded.')
 
-
 // Create express and Socket.IO services
 const service = Https.Server(certificate, server)
 const io = SocketIO(service, {
@@ -57,7 +76,6 @@ const io = SocketIO(service, {
   })
 InstallController(io, config.socket)
 console.log('Services initialized.')
-
 
 // Start server
 service.listen(config.server.port, () =>

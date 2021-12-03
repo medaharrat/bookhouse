@@ -3,6 +3,7 @@ import palette from '../../static/palette';
 
 const useStyles = makeStyles({
     title: {
+        marginTop: 10,
         fontWeight: 600,
         fontSize: 13,
         width: '70vw',

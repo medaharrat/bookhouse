@@ -1,8 +1,12 @@
-import { loginUser, register, logout } from './Actions/auth.actions';
+import { login, register, logout } from './Actions/auth.actions';
+import { getRooms, createRoom, deleteRoom } from './Actions/room.actions';
+import { getBooks } from './Actions/book.actions';
 import { AuthProvider, useAuthDispatch, useAuthState } from './Contexts/auth.context';
-import { UserProvider, useUserDispatch, useUserState } from './Contexts/user.context';
+import { RoomProvider, useRoomDispatch, useRoomState } from './Contexts/room.context';
+import { BookProvider, useBookDispatch, useBookState } from './Contexts/book.context';
 import { socket, SocketContext } from './Contexts/socket.context';
  
-export { AuthProvider, useAuthState, useAuthDispatch, loginUser, logout };
-export { UserProvider, useUserDispatch, useUserState };
+export { AuthProvider, useAuthState, useAuthDispatch, login, register, logout };
+export { RoomProvider, useRoomDispatch, useRoomState, getRooms, createRoom, deleteRoom };
+export { BookProvider, useBookDispatch, useBookState, getBooks };
 export { socket, SocketContext };

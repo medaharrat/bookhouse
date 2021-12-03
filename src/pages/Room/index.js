@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from 'prop-types';
 import { 
     IconButton, Typography, Box, Grid, Button, Modal, Card, CardActions, CardContent
@@ -8,7 +8,7 @@ import {
 } from "@material-ui/icons";
 import Avatar from "../../components/Avatar";
 import Layout from "../../components/Layout";
-import { SocketContext } from "../../context/index";
+import { useAuthState, SocketContext, socket } from "../../context";
 import { useNavigate } from "react-router-dom";
 import { useStyles } from "./styles.js";
 import _ from "../../server/config.json";
@@ -20,7 +20,6 @@ const Room = ({ title }) => {
     //Read config
     const config = _.socket
 
-    const socket = useContext(SocketContext);
     const [modal, openModal] = useState(false);
     const [users, setUsers] = useState([]);
     const [userStatus, setUserStatus] = useState({
@@ -169,6 +168,7 @@ const Room = ({ title }) => {
 
     return (
         <Layout title="Bookhouse.">
+        <SocketContext.Provider value={socket}>
             <Box className={classes.room}>
                 <Grid
                     container
@@ -268,6 +268,7 @@ const Room = ({ title }) => {
                     </CardActions>
                 </Card>
             </Modal>
+        </SocketContext.Provider>
         </Layout>
     );
 }

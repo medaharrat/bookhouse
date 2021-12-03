@@ -1,36 +1,53 @@
 import React, { useState } from "react";
+import { register, useAuthState, useAuthDispatch } from '../../../context';
 import Layout from "../../../components/Layout";
 import {
-    Typography, TextField, Button, Grid, FormControl, Link
+    Typography, TextField, Button, Grid, FormControl, Link,
+    CircularProgress
 } from "@material-ui/core";
+import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
 import { useStyles } from "./styles";
 
 const Register = () => {
-
+    const classes = useStyles();
+    const navigate = useNavigate();
     const [values, setValues] = useState({
-        firstName: '',
-        lastName: '',
+        firstname: '',
+        lastname: '',
         email: '',
         password: '',
     });
+    const [alert, setAlert] = useState({title: '', type: 'warning'})
 
-    const classes = useStyles();
+    // Get the dispatch method from the useDispatch custom hook
+    const dispatch = useAuthDispatch()
+    // Read the values of loading and error from context
+    const { loading, error } = useAuthState() 
 
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
+        try { 
+            // loginUser action makes the request and handles all the neccessary state changes
+            let response = await register(dispatch, values) 
+            if (!response) return;
+            // Navigate to login
+            navigate('/home')
+        } catch (error) {
+            setAlert({...alert, title: "Something is wrong."})
+            console.log(`Register error: ${error}`);
+        }
         console.log(`> Register ${JSON.stringify(values)}`)
     };
 
     return (
-        <Layout>
+        <Layout alert={alert}>
             <Grid
                 container
-                lg={4} md={4} xs={12}
                 spacing={2} 
                 className={classes.form}
             >
@@ -46,7 +63,7 @@ const Register = () => {
                     <FormControl fullWidth className={classes.margin} variant="outlined">
                         <TextField 
                             id="first-name" label="First name" 
-                            variant="outlined" onChange={handleChange('firstName')}
+                            variant="outlined" onChange={handleChange('firstname')}
                         />
                     </FormControl>
                 </Grid>
@@ -54,7 +71,7 @@ const Register = () => {
                     <FormControl fullWidth className={classes.margin} variant="outlined">
                         <TextField 
                             id="last-name" label="Last name" 
-                            variant="outlined" onChange={handleChange('lastName')}
+                            variant="outlined" onChange={handleChange('lastname')}
                         />
                     </FormControl>
                 </Grid>
@@ -84,9 +101,11 @@ const Register = () => {
                             disableRipple
                             disableElevation
                             onClick={handleSubmit}
+                            disabled={loading}
                         >
                             Create account
                         </Button>
+                        { loading &&  (<CircularProgress size={24} className={classes.loading} />) }
                     </FormControl>     
                 </Grid>
                 <Grid item sm={12}>

@@ -22,7 +22,7 @@ const Header = ({ fixed }) => {
     // Read dispatch method from context
     const dispatch = useAuthDispatch() 
     // Read user details from context
-    const userDetails = useAuthState() 
+    const auth = useAuthState() 
 
     // Log out
     const handleLogout = () => {
@@ -39,7 +39,7 @@ const Header = ({ fixed }) => {
         <>
         <AppBar position={fixed ? "fixed" : "static"} className={classes.header}>
             <Toolbar>
-                {userDetails.token ? 
+                {auth.token ? 
                     location.pathname === "/p/2" ? (
                         <>
                             <IconButton
@@ -70,9 +70,10 @@ const Header = ({ fixed }) => {
                                 component={Link}
                                 to="/p/2"
                             >
-                                <Avatar nav image="https://v4--material-ui-docs.netlify.app/static/images/avatar/1.jpg"/>
+                                <Avatar nav image={auth.user.avatar}/>
                             </IconButton>
                             <div className={classes.grow} />
+                            { /*
                             <IconButton
                                 aria-label="inbox"
                                 color="inherit"
@@ -114,6 +115,7 @@ const Header = ({ fixed }) => {
                             >
                                 <DateRangeOutlined/>
                             </IconButton>
+                            */ }
                         </>
                     ):(
                     <>

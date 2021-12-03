@@ -1,25 +1,24 @@
-const ROOT_URL = 'https://secret-hamlet-03431.herokuapp.com'; // API Link
+const API_URL = 'https://localhost:8000/api';
 
 // Log in
-export async function loginUser(dispatch, payload) {
+export async function login(dispatch, payload) {
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
   };
- 
+
   try {
     dispatch({ type: 'REQUEST_LOGIN' });
-    let response = await fetch(`${ROOT_URL}/login`, requestOptions);
+    let response = await fetch(`${API_URL}/auth/login`, requestOptions);
     let data = await response.json();
- 
+    
     if (data.user) {
       dispatch({ type: 'LOGIN_SUCCESS', payload: data });
       localStorage.setItem('currentUser', JSON.stringify(data));
       return data
     }
- 
-    dispatch({ type: 'LOGIN_ERROR', error: data.errors[0] });
+    dispatch({ type: 'LOGIN_ERROR', error: data.error });
     return;
   } catch (error) {
     dispatch({ type: 'LOGIN_ERROR', error: error });
@@ -32,22 +31,24 @@ export async function register(dispatch, payload) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
-  };
- 
+  };  
+  // Begin register
+  dispatch({ type: 'REQUEST_REGISTER' });
+  // Make request
   try {
-    dispatch({ type: 'REQUEST_REGISTER' });
-    let response = await fetch(`${ROOT_URL}/register`, requestOptions);
+    let response = await fetch(`${API_URL}/auth/signup`, requestOptions)
     let data = await response.json();
- 
-    if (data.user) {
-      dispatch({ type: 'REGISTER_SUCCESS', payload: data });
+
+    if(data.user) {
+      dispatch({ type: 'REGISTER_SUCCESS', payload: data});
       localStorage.setItem('currentUser', JSON.stringify(data));
       return data
+    } else {
+      dispatch({ type: 'REGISTER_ERROR', error: data.errors[0]});
+      return;
     }
- 
-    dispatch({ type: 'REGISTER_ERROR', error: data.errors[0] });
-    return;
-  } catch (error) {
+  }
+  catch( error ) {
     dispatch({ type: 'REGISTER_ERROR', error: error });
   }
 }
@@ -56,5 +57,4 @@ export async function register(dispatch, payload) {
 export async function logout(dispatch) {
   dispatch({ type: 'LOGOUT' });
   localStorage.removeItem('currentUser');
-  localStorage.removeItem('token');
 }
