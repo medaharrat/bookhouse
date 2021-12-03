@@ -1,32 +1,8 @@
 # Define stages
 stages:
-  - environment
-  - build
   - test
+  - build
   - deploy
-
-
-# Check environment
-check-environment:
-  stage: environment
-  image: node:15
-  script:
-    - node -v
-    - npm -v
-    - yarn -v
-
-
-# Install dependencies
-build-packages:
-  stage: build
-  image: node:15
-  script:
-    - yarn install
-    - CI= yarn build
-  artifacts:
-    paths:
-      - build/
-
 
 # Test client
 test-client:
@@ -56,6 +32,17 @@ test-all:
     - echo "Combined testing server dummy code."
     - sleep 10
 
+
+# Install dependencies
+build-packages:
+  stage: build
+  image: node:15
+  script:
+    - yarn install
+    - CI= yarn build
+  artifacts:
+    paths:
+      - build/
 
 
 # Deploy client to netlify

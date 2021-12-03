@@ -37,7 +37,7 @@
     "client": "react-scripts start",
     "server": "nodemon ./src/server/server.node",
     "test-client": "react-scripts test",
-    "test-server": "jest"
+    "test-server": "exit 0"
   },
   "eslintConfig": {
     "extends": [
@@ -58,14 +58,6 @@
     ]
   },
   "devDependencies": {
-    "cross-env": "^7.0.3",
-    "nodemon": "^2.0.15",
-    "supertest": "^6.1.6"
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "coveragePathIgnorePatterns": [
-      "/node_modules/"
-    ]
+    "nodemon": "^2.0.15"
   }
 }
