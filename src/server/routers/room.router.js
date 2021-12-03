@@ -17,6 +17,7 @@ router.post("/create" , async (req , res) =>
 {
     const { title, attendees } = req.body
 
+    // TODO not just filter by id
     if (!(title)) {
         return res.status(400).json({ok: 0, message: "Empty inputs!"})
     }
