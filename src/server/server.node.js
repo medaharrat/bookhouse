@@ -7,29 +7,30 @@ const Express = require("express")
 const SocketIO = require("socket.io")
 const InstallController = require("./socket.node")
 const Mongoose = require('mongoose')
-const session = require('express-session')
-const MongoDBSession = require('connect-mongodb-session')(session)
-
-
-// Load config
+const cors = require('cors');
 const config = require('./config.json')
+// const session = require('express-session')
+// const MongoDBSession = require('connect-mongodb-session')(session)
+
+// Mongoose settings
+Mongoose.Promise = global.Promise;
+
+// Connect to MongoDB Atlas
 const connectionString = `${config.server.database.protocol}://${config.server.database.user}:${config.server.database.password}@${config.server.database.host}/${config.server.database.database}` 
-console.log(connectionString)
-// Mongoose connection init
-Mongoose
-    .connect(connectionString,
-    {useNewUrlParser: true, useUnifiedTopology: true}).then((res) => {
-        console.log('Connected to Database')
-    })
-const Db = Mongoose.connection
-Db.on('error', (error) => console.error(error))
-//db.once('open', () => console.log('Connected to Database'))
 
+Mongoose.connect(connectionString, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => {
+    console.log('> MongoDB connected.');
+}).catch(err => {
+    console.log('[X] - Failed to connect to MongoDB', err);
+});
 
-const store = new MongoDBSession({
-    uri: connectionString,
-    collection: 'Sessions'
-})
+Mongoose.connection.on('error', err => {
+    console.log(`[X] - MongoDB Connection Error: ${err}`);
+});
+
 
 // Create express server
 const server = Express()
@@ -39,14 +40,16 @@ server.use(config.server.publicUrl, Express.static(config.server.public))
 server.use(cors());
 server.use(Express.json())
 
-// We don't want to create a new session for every request (resave: false)
-// And if we didn't touch (or modify) the session, we don't want to save it
+/* We don't want to create a new session for every request (resave: false)
+* And if we didn't touch (or modify) the session, we don't want to save it
+*
 server.use(session({
     secret: "cookie-signer string",
     resave: false,
     saveUninitialized: false,
     store: store
 }))
+*/
 server.use((req, res, next) => //Custom injection middleware
 {
     req.config = config
