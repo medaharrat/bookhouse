@@ -2,60 +2,45 @@
 
 // External Modules
 const Express = require('express')
-const Mongoose = require('mongoose')
 
 
 // Create router
 const router = Express.Router()
 
 const Room = require("../models/room.model")
-const Book = require("../models/book.model")
 
 // New Room
 // TODO Create a BOOK object or reference after the room has been created!
 router.post("/create" , async (req , res) =>
 {
-    const { title, attendees } = req.body
+    const { id, title, category, attendees, cover } = req.body
 
     // TODO not just filter by id
-    if (!(title)) {
+    let room = await Room.findOne({id})
+
+    if (room) {
+        return res.status(400).json({ok: 0, message: "Room already existing"})
+    }
+
+    if (!(title && category && attendees)) {
         return res.status(400).json({ok: 0, message: "Empty inputs!"})
     }
+    let count = await Room.count({})
     // return res.send({message: count})
-    const book = new Book({
-        title: 'Default title',
-        author: 'Default author'
-    })
-    await book.save()
-
-    const room = new Room({
-        book: book._id,
+    room = new Room({
+        id: id,
         title: title,
-        attendees: attendees || []
+        category: category,
+        attendees: attendees,
     })
+
     try {
-        await room.save()
-
-        room.save(function(err) {
-            if (err){
-                return res.status(400).send({message: error.message})
-            }
-            else {
-                Room.find({}).populate('book').exec(function(error, posts) {
-                    if (error) {
-                        return res.status(400).send({message: error.message})
-                    }
-                })
-            }
-        })
+        const newRook = await room.save()
         // Succesfully created object
-        return res.status(201).send({ok: 1, message: "Room created with book reference"})
+        res.status(201).send({ok: 1, message: "Room created"})
     } catch (error) {
-        return res.status(400).send({ok: 0, message: error.message})
+        res.status(400).send({ok: 0, message: error.message})
     }
-
-    
-
 })
 
 router.delete("/delete/:id" , getRoom, async (req , res) =>

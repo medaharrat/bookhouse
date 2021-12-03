@@ -14,7 +14,7 @@ const User = require('../models/user.model')
 // Get one user
 router.get("/:id", getUser, async (req , res) =>
 {
-    res.status(200).json(res.user)
+    res.status(200).json(User.expose(res.user))
 })
 
 
