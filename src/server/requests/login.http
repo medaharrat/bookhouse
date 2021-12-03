@@ -7,7 +7,8 @@ Content-Type: application/json
     "firstName": "Test",
     "lastName": "User",
     "email": "test2@email.com",
-    "password": "passwd"
+    "password": "passwd",
+    "password2": "passwd"
 }
 ###
 POST https://localhost:8000/api/auth/login
@@ -25,11 +26,11 @@ GET https://localhost:8000/debug/
 
 ###
 #Get one user by id
-GET https://localhost:8000/api/user/61a0ea4d19c8e8b33eed8ca9
+GET https://localhost:8000/api/auth/login/619505c9525e2c7b0f3d7ef5
 
 ###
 #Delete by id
-DELETE https://localhost:8000/api/user/61950b7f6eabe064fb5d9922
+DELETE https://localhost:8000/api/auth/login/61950b7f6eabe064fb5d9922
 
 
 ###
@@ -50,13 +51,11 @@ POST https://localhost:8000/create
 Content-Type: application/json
 
 {
-    "title": "Test"
+    "title": "Test2",
+    "category": "Testcateg2",
+    "attendees": 419
 }
 
 
-#Delete 
 ###
 DELETE https://localhost:8000/delete/5
-
-
-#Get user

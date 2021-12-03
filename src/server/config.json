@@ -29,7 +29,7 @@
             },
             {
                 "module": "./routers/user.router",
-                "url": "/api/user/"
+                "url": "/user/"
             },
             {
                 "module": "./routers/book.router",
