@@ -106,16 +106,15 @@ const Room = () => {
     
         //On user sync received
         socket.on(config.messages.sync, (data) => {
-            console.log('> Syncing ...')
+            console.log('> Sync.')
         })
     
         //On user status change
         socket.on(config.messages.update, (data) => {
-            console.log('> User data changed', data)
             const list = []
             for (let id in data) {
                 const info = data[id]
-                if (info.connected == true){
+                if (info.connected === true){
                     list.push(info)
                 }
             }
@@ -289,7 +288,7 @@ Room.propTypes = {
 };
   
 Room.defaultProps = {
-    
+    title: ''
 };
 
 export default Room;

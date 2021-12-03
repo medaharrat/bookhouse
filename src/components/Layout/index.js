@@ -9,11 +9,15 @@ import Navbar from "../Navigation/Navbar";
 import Ad from "../Ad";
 import { useStyles } from "./styles";
 import { useAuthState } from "../../context";
+import { useLocation } from "react-router-dom";
 
 const Layout = ({ title, children, ad, alert }) => {
     const classes = useStyles();
+    const location = useLocation();
     // Read user details from context
     const auth = useAuthState()
+    // Remove navbar when in a room
+    const inRoom = location.pathname.split('/')[1] === 'r';
 
     return (
 
@@ -39,7 +43,7 @@ const Layout = ({ title, children, ad, alert }) => {
             </Container>
 
             {/* Navbar */}
-            {auth.token && auth.user && (
+            {auth.token && auth.user && !inRoom &&(
                 <Navbar />
             )}
 

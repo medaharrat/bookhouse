@@ -1,11 +1,8 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import {
-    AppBar, IconButton, Badge, Toolbar, Button
+    AppBar, IconButton, Toolbar, Button
 } from "@material-ui/core";
-import {
-    DraftsOutlined, DateRangeOutlined, NotificationsNoneOutlined
-} from "@material-ui/icons";
 import ArrowBackOutlinedIcon from '@material-ui/icons/ArrowBackOutlined';
 import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import { useAuthState, logout, useAuthDispatch } from '../../../context';
@@ -40,7 +37,7 @@ const Header = ({ fixed }) => {
         <AppBar position={fixed ? "fixed" : "static"} className={classes.header}>
             <Toolbar>
                 {auth.token ? 
-                    location.pathname === "/p/2" ? (
+                    location.pathname === "/profile" ? (
                         <>
                             <IconButton
                                 aria-label="back"
@@ -68,7 +65,7 @@ const Header = ({ fixed }) => {
                                 aria-label="account"
                                 color="inherit"
                                 component={Link}
-                                to="/p/2"
+                                to="/profile"
                             >
                                 <Avatar nav image={auth.user.avatar}/>
                             </IconButton>

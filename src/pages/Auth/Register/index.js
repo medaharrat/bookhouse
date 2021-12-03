@@ -23,7 +23,7 @@ const Register = () => {
     // Get the dispatch method from the useDispatch custom hook
     const dispatch = useAuthDispatch()
     // Read the values of loading and error from context
-    const { loading, error } = useAuthState() 
+    const { loading } = useAuthState() 
 
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });

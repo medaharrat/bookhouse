@@ -32,7 +32,7 @@ const useStyles = makeStyles({
         zIndex: 99,
         width: '100%',
         height: '10vh',
-        bottom: 55,
+        bottom: 0,
         backgroundColor: palette.background.darkgrey,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,

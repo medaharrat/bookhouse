@@ -42,7 +42,7 @@ const routes = [
     },
     {
         name: "profile",
-        path: "/p/:userId",
+        path: "/profile",
         element: (
             <RequireAuth>
                 <Profile />
