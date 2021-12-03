@@ -29,13 +29,14 @@ const UserSchema = new Mongoose.Schema({
     registerDate: {
         type: Date,
         required: true,
-        default: Date.now()
+        default: () => {return Date.now()}
     },
     lastLoginDate: {
         type: Date
     },
     joinedRooms: {
-        type: []
+        type: [],
+        default: () => {return []}
     },
     interests: {
         type: []

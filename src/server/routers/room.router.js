@@ -83,6 +83,10 @@ async function getRoom(req, res, next) {
     res.room = room
     next()
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0dbf32f3734725a663ccbd2b508029a4ea9cef40
 
 // Export module
 module.exports = router

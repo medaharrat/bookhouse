@@ -56,67 +56,42 @@ router.post("/login", (req, res) => {
     })
 })
 
-// For tests, get all the users
-router.get("/login" , async (req , res) =>
-{
-    try {
-        const allUsers = await User.find()
-        res.status(200).json(allUsers)
-    } catch (error) {
-        res.status(500).send({message: error.message})
+// Login
+router.post("/login" , async (req , res) => {
+    const { email, password} = req.body;
+
+    const user = await User.findOne({email})
+
+    // Non existant
+    if (!user) {
+        return res.redirect(400, '/login')
     }
+
+    const isMatch = await bcrypt.compare(password, user.password)
+
+    // Wrong pass
+    if (!isMatch) {
+        return res.redirect('/login')
+    }
+
+    return res.redirect(200, '../user')
+    // ??? res.redirect('/user/:id?')
 })
 
-// Get one User
-router.get("/login/:id", getUser, async (req , res) =>
-{
-    res.status(200).json(res.user)
-})
-
-router.delete("/login/:id" , getUser, async (req , res) =>
-{
-    try {
-        /*User.findByIdAndDelete(req.params.id, function(err, usr) {
-            if (err){
-                console.log(err)
-                res.status(500).send({message: err})
-            }
-            else{
-                console.log("Deleted : ", usr);
-                res.status(200).send({message:usr})
-            }
-        })*/
-        await res.user.remove()
-        res.status(200).send({message: 'Deleted user'})
-    } catch (error) {
-        res.status(500).send({message: error.message})
+const isAuthorized = (req, res, next) =>{
+    if (req.session.isAuth) {
+        next()
     }
-})
-
-
-// Middleware for getting user (for clean-code)
-async function getUser(req, res, next) {
-    let user
-    try {
-        // Find the user that passed in the URL
-        user = await User.findById(req.params.id) 
-
-        // Cannot find subscriber
-        if (user == null) {
-            return res.status(404).json({message: 'Cannot find subscriber by id: ' + req.params.id})
-        }
-    } catch (error) {
-        // Sth wrong with the server
-        return res.status(500).json({message: error.message})
+    else {
+        res.redirect('/login')
     }
-    res.user = user
-    next()
 }
 // Generate a token 
 
 const generateToken = (user) => {
     return jwt.sign({ data: user }, tokenSecret, {expiresIn: '24h'})
 }
+
 
 // Export module
 module.exports = router
