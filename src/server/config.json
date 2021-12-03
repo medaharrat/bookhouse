@@ -34,10 +34,6 @@
             {
                 "module": "./routers/book.router",
                 "url": "/book/"
-            },
-            {
-                "module": "./routers/status.router",
-                "url": "/status"
             }
         ]
     },
