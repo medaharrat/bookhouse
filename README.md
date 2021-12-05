@@ -21,7 +21,12 @@ In the project directory, you can run:
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-`yarn client` React service\
-`yarn server` SocketIO and API service
+1. Start the SocketIO and API Services\
+`yarn server`\
+2. Start the local client service
+`yarn client`\
 
 (Run in different terminals)
+
+### With docker
+`docker-compose up --build`
