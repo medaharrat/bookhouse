@@ -42,7 +42,7 @@
     "client": "react-scripts start",
     "server": "nodemon ./src/server/server.node",
     "test-client": "react-scripts test",
-    "test-server": "exit 0"
+    "test-server": "jest ."
   },
   "eslintConfig": {
     "extends": [
@@ -63,6 +63,7 @@
     ]
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "supertest": "^6.1.6"
   }
 }

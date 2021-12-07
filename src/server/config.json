@@ -20,6 +20,10 @@
         "routers":
         [
             {
+                "module": "./routers/status.router",
+                "url": "/status"
+            },
+            {
                 "module": "./routers/auth.router",
                 "url": "/api/auth/"
             },
