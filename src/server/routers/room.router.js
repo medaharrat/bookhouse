@@ -69,7 +69,7 @@ router.post("/create" , async (req , res) =>
 // Delete a room
 router.delete("/delete/:id" , getRoom, async (req , res) => {
     try {
-        Room.remove({
+        Room.deleteOne({
             "_id": req.params.id
         }, function (err, room) {
             if (err)
