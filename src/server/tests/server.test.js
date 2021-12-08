@@ -17,7 +17,7 @@ server.use((req, res, next) => //Custom injection middleware
 
 
 // Install Express routers
-server.use(config.server.routers[0].url, require('.' + config.server.routers[0].module))
+server.use('/', require('../routers/status.router'))
 
 
 const request = Supertest(server)
@@ -26,7 +26,7 @@ describe('Server status', () => {
 
     it('GET /status should return online', async () =>
     {
-        const res = await request.get('/status')
+        const res = await request.get('/')
         expect(res.status).toEqual(200)
         expect(res.body).toHaveProperty('online')
         expect(res.body.online).toBe(true)
@@ -34,7 +34,7 @@ describe('Server status', () => {
   
     it('GET /statuserr should return 404', async () =>
     {
-        const res = await request.get('/statuserr')
+        const res = await request.get('/err')
         expect(res.status).toEqual(404)
     })
 })

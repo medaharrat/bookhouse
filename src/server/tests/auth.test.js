@@ -1,29 +1,24 @@
 
 // Modules
+// TextEncoder and Decoder is used with mongoose, without it it won't compile!
+global.TextEncoder = require("util").TextEncoder;
+global.TextDecoder = require("util").TextDecoder;
 const Supertest = require('supertest')
 const Express = require("express")
 const Mongoose = require('mongoose')
-const config = require('./config.json')
+const config = require('../config.json')
+//const router = require('../routers/auth.router')
 
 // Connect to MongoDB Atlas
 const connectionString = `${config.server.database.protocol}://${config.server.database.user}:${config.server.database.password}@${config.server.database.host}/${config.server.database.database}` 
 
-Mongoose.connect(connectionString, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => {
-    console.log('> MongoDB connected.');
-}).catch(err => {
-    console.log('[X] - Failed to connect to MongoDB', err);
-});
+beforeAll(async () => {
+    await Mongoose.connect(connectionString, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    })
+})
 
-Mongoose.connection.on('error', err => {
-    console.log(`[X] - MongoDB Connection Error: ${err}`);
-});
-
-
-// Load config
-const config = require('../config.json')
 
 const server = Express()
 server.set('views', config.server.views)
@@ -34,36 +29,39 @@ server.use((req, res, next) => //Custom injection middleware
     req.config = config
     next()
 })
+server.use(Express.json())
 
 
 // Install Express routers
-server.use(config.server.routers[0].url, require('.' + config.server.routers[0].module))
-
+server.use('/', require('../routers/auth.router'))
 
 const request = Supertest(server)
 
 describe('Authentication status', () => {
 
-    it('POST /signup should return user and token', async () =>
+    it('POST /signup should return 200 only at good user creation', async () =>
     {
-        /*const res = await request.get('/signup')
+        const res = await request.post('/signup').send({
+            firstname: "Test",
+            lastname: "User",
+            email: "testtest@email.com",
+            password: "passwd"
+        }).set('Content-Type', 'application/json')
+        .set('Accept', 'application/json')
         expect(res.status).toEqual(200)
-        expect(res.body).toHaveProperty('online')
-        expect(res.body.online).toBe(true)*/
-        return request.post('/signup').send({
-            firstname: 'TEST',
-            lastname: 'USER',
-            email: 'test@gmail.com',
-            password: 'testpass'
-        }).expect(200).then((res) =>{
-            expect(res.body.user.firstname).toBe('TEST')
-            expect(res.body.user).toHaveProperty('username')
-        })
+        expect(res.body.user.username).toEqual('est-ser')
     })
-  
-    it('GET /statuserr should return 404', async () =>
+
+
+    it('POST /signup should return 500 at bad user creation', async () =>
     {
-        const res = await request.get('/statuserr')
-        expect(res.status).toEqual(404)
+        const res = await request.post('/signup').send({
+            firstname: "Test",
+            lastname: "User",
+            email: "testtest@email.com"
+        }).set('Content-Type', 'application/json')
+        .set('Accept', 'application/json')
+        expect(res.status).toEqual(500)
+        
     })
 })
