@@ -56,36 +56,6 @@ router.post("/login", (req, res) => {
     })
 })
 
-// Login
-router.post("/login" , async (req , res) => {
-    const { email, password} = req.body;
-
-    const user = await User.findOne({email})
-
-    // Non existant
-    if (!user) {
-        return res.redirect(400, '/login')
-    }
-
-    const isMatch = await bcrypt.compare(password, user.password)
-
-    // Wrong pass
-    if (!isMatch) {
-        return res.redirect('/login')
-    }
-
-    return res.redirect(200, '../user')
-    // ??? res.redirect('/user/:id?')
-})
-
-const isAuthorized = (req, res, next) =>{
-    if (req.session.isAuth) {
-        next()
-    }
-    else {
-        res.redirect('/login')
-    }
-}
 // Generate a token 
 
 const generateToken = (user) => {

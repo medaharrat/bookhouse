@@ -25,7 +25,7 @@
             },
             {
                 "module": "./routers/auth.router",
-                "url": "/api/auth/"
+                "url": "/api/auth"
             },
             {
                 "module": "./routers/room.router",
