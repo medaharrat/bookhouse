@@ -5,7 +5,7 @@
             "protocol": "mongodb+srv",
             "user": "root",
             "password": "admin123",
-            "host": "bookhousecluster.tejiq.mongodb.net",
+            "host": "<bookhouse.cluster>",
             "database": "bookhouse?retryWrites=true&w=majority"
         },
         "port": 8000,
@@ -14,8 +14,8 @@
         "publicUrl": "/files",
         "ssl": {
             "ca": null,
-            "key": "./src/server/certificate/bookhouse-key.pem",
-            "cert": "./src/server/certificate/bookhouse-cert.pem"
+            "key": "./src/server/certificate/<bookhouse-key>.pem",
+            "cert": "./src/server/certificate/<bookhouse-cert>.pem"
         },
         "routers":
         [
